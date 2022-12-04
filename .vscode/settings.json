@@ -1,0 +1,13 @@
+{
+  "terminal.integrated.tabs.enabled": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "source.fixAll.eslint": true,
+  "editor.tabSize": 2,
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "files.insertFinalNewline": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "js/ts.implicitProjectConfig.experimentalDecorators": true
+}
