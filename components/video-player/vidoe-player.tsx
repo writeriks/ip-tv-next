@@ -1,22 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import dynamic from 'next/dynamic'
 import { url3 } from '../../constants'
+import { useSelector } from 'react-redux'
+import contextReducerSelector from '../../store/reducers/context-reducer/constext-reducer-selector'
 const ReactPlayer = dynamic(() => import('react-player'), { ssr: false })
 
 const VideoPlayer = (): React.ReactElement => {
-  const [isMobile, setIsMobile] = useState(false)
-  useEffect(() => {
-    if (typeof navigator.userAgent != 'undefined') {
-      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-        console.log('MOBILEEE')
-        setIsMobile(true)
-      } else {
-        setIsMobile(false)
-        console.log('NOT MOBILEEE')
-      }
-    }
-  }, [])
+  const isMobile = useSelector(contextReducerSelector.getIsMobile)
+  console.log('🚀 ~ file: vidoe-player.tsx:11 ~ VideoPlayer ~ isMobile', isMobile)
 
   return (
     <div>

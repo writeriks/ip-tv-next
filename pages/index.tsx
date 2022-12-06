@@ -1,13 +1,30 @@
 import React from 'react'
-import VideoPlayer from '../components/video-player/vidoe-player'
-import styles from '../styles/Home.module.css'
+import HomePage from '../components/home-page/home-page'
+import { parse } from 'next-useragent'
+import { setIsMobile } from '../store/reducers/context-reducer/context-slice'
+import { useDispatch } from 'react-redux'
 
-const Home = (): React.ReactElement => {
+const Home: React.FC<any> = ({ userAgentString }): React.ReactElement => {
+  const dispatch = useDispatch()
+  if (userAgentString) {
+    dispatch(setIsMobile(parse(userAgentString).isMobile))
+  } else {
+    dispatch(setIsMobile(parse(window.navigator.userAgent).isMobile))
+  }
+
   return (
     <div>
-      <VideoPlayer />
+      <HomePage />
     </div>
   )
+}
+
+export async function getServerSideProps(context: any) {
+  return {
+    props: {
+      userAgentString: context.req.headers['user-agent'],
+    },
+  }
 }
 
 export default Home
