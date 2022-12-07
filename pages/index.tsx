@@ -13,7 +13,7 @@ const Home: React.FC<any> = ({ userAgentString }): React.ReactElement => {
   }
 
   return (
-    <div>
+    <div className="main">
       <HomePage />
     </div>
   )

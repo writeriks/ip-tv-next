@@ -2,13 +2,17 @@ import type { AppProps } from 'next/app'
 
 import { Provider } from 'react-redux'
 import store from '../store/redux-store'
+import { ChakraProvider } from '@chakra-ui/react'
 
 import '../styles/globals.css'
+import '../styles/home-page.css'
 
 const App = ({ Component, pageProps }: AppProps): React.ReactElement => {
   return (
     <Provider store={store}>
-      <Component {...pageProps} />
+      <ChakraProvider>
+        <Component {...pageProps} />
+      </ChakraProvider>
     </Provider>
   )
 }
