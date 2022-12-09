@@ -1,8 +1,9 @@
 import React from 'react'
-import HomePage from '../components/home-page/home-page'
+import LayoutMain from '../components/home-page/layout-main'
 import { parse } from 'next-useragent'
 import { setIsMobile } from '../store/reducers/context-reducer/context-slice'
 import { useDispatch } from 'react-redux'
+import styles from '../styles/Home.module.scss'
 
 const Home: React.FC<any> = ({ userAgentString }): React.ReactElement => {
   const dispatch = useDispatch()
@@ -13,8 +14,8 @@ const Home: React.FC<any> = ({ userAgentString }): React.ReactElement => {
   }
 
   return (
-    <div className="main">
-      <HomePage />
+    <div className={styles.main}>
+      <LayoutMain />
     </div>
   )
 }
