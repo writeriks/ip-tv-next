@@ -2,26 +2,21 @@ import React from 'react'
 
 import { useSelector } from 'react-redux'
 
+import ContentPanel from '../content-panel/content-panel'
+
 import contextReducerSelector from '../../store/reducers/context-reducer/constext-reducer-selector'
 
-import playerService from '../../services/player-service/player-service'
-
-import { mu3Link } from '../../constants'
 import styles from '../../styles/LayoutMain.module.scss'
+import SideBar from '../side-bar/side-bar'
 
 const LayoutMain = (): React.ReactElement => {
   const channels = useSelector(contextReducerSelector.getChannels)
-  console.log('🚀 ~ file: home-page.tsx:11 ~ HomePage ~ channels', channels)
-
-  const syncChannels = async () => {
-    await playerService.initializeChannels(mu3Link)
-  }
+  console.log('🚀 ~ file: home-page.tsx:11 ~ LayoutMain ~ channels', channels)
 
   return (
-    <div>
-      <button className={styles.syncButton} onClick={() => syncChannels()}>
-        Sync
-      </button>
+    <div className={styles.layout}>
+      <SideBar />
+      <ContentPanel />
     </div>
   )
 }
