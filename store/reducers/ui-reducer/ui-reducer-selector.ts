@@ -6,6 +6,10 @@ class UiReducerSelector {
   getUiReducer = (state: RootState): UIState => state.ui
 
   getIsLoading = createSelector(this.getUiReducer, (ui) => ui.isLoading)
+
+  getIsSideBarVisible = createSelector(this.getUiReducer, (ui) => ui.isSideBarVisible)
+
+  getIsSideBarWidth = createSelector(this.getUiReducer, (ui) => ui.sideBarWidth)
 }
 
 const uiReducerSelector = new UiReducerSelector()

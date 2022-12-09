@@ -1,4 +1,10 @@
 .contentPanelContainer {
+  display: flex;
   width: 100%;
   background-color: red;
+  padding: 10px;
+
+  .unHideSideBarButton {
+    height: 30px;
+  }
 }

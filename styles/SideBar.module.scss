@@ -1,3 +1,30 @@
 .sideBarContainer {
   background-color: green;
+  display: flex;
+  padding: 10px 0 10px 10px;
+
+  .sider {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 1px);
+    height: 100%;
+  }
+
+  .hideSideBarButton {
+    height: 30px;
+  }
+
+  .dragHitbox {
+    padding-left: 9px;
+    height: 100%;
+    width: 10px;
+    cursor: ew-resize;
+
+    .dragHandleDivider {
+      border-left: 1px solid gray;
+      width: 1px;
+      min-width: 1px;
+      height: 100%;
+    }
+  }
 }

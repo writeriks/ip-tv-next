@@ -2,10 +2,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface UIState {
   isLoading: boolean
+  isSideBarVisible: boolean
+  sideBarWidth: number
 }
 
 export const initialState: UIState = {
   isLoading: false,
+  isSideBarVisible: true,
+  sideBarWidth: 150,
 }
 
 const uiSlice = createSlice({
@@ -15,9 +19,17 @@ const uiSlice = createSlice({
     setIsLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload
     },
+
+    setIsSideBarVisible: (state, action: PayloadAction<boolean>) => {
+      state.isSideBarVisible = action.payload
+    },
+
+    setSideBarWidth: (state, action: PayloadAction<number>) => {
+      state.sideBarWidth = action.payload
+    },
   },
 })
 
-export const { setIsLoading } = uiSlice.actions
+export const { setIsLoading, setIsSideBarVisible, setSideBarWidth } = uiSlice.actions
 
 export default uiSlice.reducer
