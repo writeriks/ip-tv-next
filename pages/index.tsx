@@ -1,5 +1,5 @@
 import React from 'react'
-import LayoutMain from '../components/home-page/layout-main'
+import LayoutMain from '../components/layout-main/layout-main'
 import { parse } from 'next-useragent'
 import { setIsMobile } from '../store/reducers/context-reducer/context-slice'
 import { useDispatch } from 'react-redux'

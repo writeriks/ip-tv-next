@@ -8,6 +8,8 @@ class ContextReducerSelector {
   getChannels = createSelector(this.getContextReducer, (context) => context.channels)
 
   getIsMobile = createSelector(this.getContextReducer, (context) => context.isMobile)
+
+  getSelectedCategory = createSelector(this.getContextReducer, (context) => context.selectedCategory)
 }
 
 const contextReducerSelector = new ContextReducerSelector()

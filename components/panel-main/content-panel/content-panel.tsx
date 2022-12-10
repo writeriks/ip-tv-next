@@ -1,11 +1,13 @@
 import React from 'react'
 
+import { useDispatch, useSelector } from 'react-redux'
+
 import { ArrowRightIcon } from '@chakra-ui/icons'
 
-import styles from '../../styles/ContentPanel.module.scss'
-import { useDispatch, useSelector } from 'react-redux'
-import uiReducerSelector from '../../store/reducers/ui-reducer/ui-reducer-selector'
-import { setIsSideBarVisible } from '../../store/reducers/ui-reducer/ui-slice'
+import { setIsSideBarVisible } from '../../../store/reducers/ui-reducer/ui-slice'
+import uiReducerSelector from '../../../store/reducers/ui-reducer/ui-reducer-selector'
+
+import styles from '../../../styles/ContentPanel.module.scss'
 
 const ContentPanel = () => {
   const dispatch = useDispatch()

@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { ArrowLeftIcon } from '@chakra-ui/icons'
 
-import useDraggableSideBarWidth from '../../services/hooks/use-draggable-side-bar-width'
+import useDraggableSideBarWidth from '../../../services/hooks/use-draggable-side-bar-width'
 
-import contextReducerSelector from '../../store/reducers/context-reducer/constext-reducer-selector'
+import { setIsSideBarVisible } from '../../../store/reducers/ui-reducer/ui-slice'
+import contextReducerSelector from '../../../store/reducers/context-reducer/constext-reducer-selector'
+import uiReducerSelector from '../../../store/reducers/ui-reducer/ui-reducer-selector'
 
-import styles from '../../styles/SideBar.module.scss'
-import uiReducerSelector from '../../store/reducers/ui-reducer/ui-reducer-selector'
-import { setIsSideBarVisible } from '../../store/reducers/ui-reducer/ui-slice'
+import styles from '../../../styles/SideBar.module.scss'
 
 const SideBar = () => {
   const dispatch = useDispatch()
