@@ -3,7 +3,8 @@ import { useDispatch } from 'react-redux'
 import { setSideBarWidth } from '../../store/reducers/ui-reducer/ui-slice'
 
 const useDraggableSideBarWidth = (isDragging: boolean, isMobile: boolean, setIsDragging: Dispatch<SetStateAction<boolean>>): number => {
-  const MIN_SIDEBAR_WIDTH = 150
+  const SIDEBAR_WIDTH_MOBILE = 250
+  const MIN_SIDEBAR_WIDTH = 200
   const MAX_SIDEBAR_WIDTH_PERCENTAGE = 0.3
 
   const dispatch = useDispatch()
@@ -38,7 +39,7 @@ const useDraggableSideBarWidth = (isDragging: boolean, isMobile: boolean, setIsD
       document.removeEventListener('mouseup', handleMouseUp)
     }
   })
-  return isMobile ? 220 : width
+  return isMobile ? SIDEBAR_WIDTH_MOBILE : width
 }
 
 export default useDraggableSideBarWidth

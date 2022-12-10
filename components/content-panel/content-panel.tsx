@@ -18,7 +18,8 @@ const ContentPanel = () => {
           <ArrowRightIcon />
         </button>
       )}
-      ContentPanel
+
+      <div></div>
     </div>
   )
 }
