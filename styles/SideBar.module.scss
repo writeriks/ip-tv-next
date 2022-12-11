@@ -1,5 +1,5 @@
 .sideBarContainer {
-  background-color: green;
+  background-color: #ffffff;
   display: flex;
 
   .sidebarInner {
@@ -9,6 +9,22 @@
 
     .header {
       padding: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .logoAnimation {
+        width: 100px;
+
+        div {
+          cursor: auto;
+        }
+      }
+
+      button {
+        width: 50px;
+        height: 50px;
+      }
     }
 
     .channelListContainer {

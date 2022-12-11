@@ -29,7 +29,7 @@ const contextSlice = createSlice({
     setIsMobile: (state, action: PayloadAction<boolean>) => {
       state.isMobile = action.payload
     },
-    setSelectedCategory: (state, action: PayloadAction<selectedCategory>) => {
+    setSelectedCategory: (state, action: PayloadAction<selectedCategory | null>) => {
       state.selectedCategory = action.payload
     },
   },

@@ -2,7 +2,7 @@ import React from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import { ArrowRightIcon } from '@chakra-ui/icons'
+import { HamburgerIcon } from '@chakra-ui/icons'
 
 import { setIsSideBarVisible } from '../../../store/reducers/ui-reducer/ui-slice'
 import uiReducerSelector from '../../../store/reducers/ui-reducer/ui-reducer-selector'
@@ -17,7 +17,7 @@ const ContentPanel = () => {
     <div className={styles.contentPanelContainer}>
       {!isSideBarVisible && (
         <button className={styles.unHideSideBarButton} onClick={() => dispatch(setIsSideBarVisible(!isSideBarVisible))}>
-          <ArrowRightIcon />
+          <HamburgerIcon boxSize={6} />
         </button>
       )}
 
