@@ -1,8 +1,10 @@
 import React from 'react'
+
 import { selectedCategory } from '../../store/reducers/context-reducer/context-slice'
 
-import styles from '../../styles/LandingPage.module.scss'
 import landingPageHelper from './landing-page-helper'
+
+import styles from '../../styles/LandingPage.module.scss'
 
 const LandingPage = () => {
   return (

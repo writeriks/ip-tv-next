@@ -1,13 +1,23 @@
 .sideBarContainer {
   background-color: green;
   display: flex;
-  padding: 10px 0 10px 10px;
 
-  .sider {
+  .sidebarInner {
     display: flex;
     flex-direction: column;
-    width: calc(100% - 1px);
-    height: 100%;
+    width: 100%;
+
+    .header {
+      padding: 5px;
+    }
+
+    .channelListContainer {
+      padding: 5px;
+      display: flex;
+      flex-direction: column;
+      width: calc(100% - 1px);
+      height: 100%;
+    }
   }
 
   .hideSideBarButton {
@@ -15,13 +25,11 @@
   }
 
   .dragHitbox {
-    padding-left: 9px;
     height: 100%;
-    width: 10px;
     cursor: ew-resize;
 
     .dragHandleDivider {
-      border-left: 1px solid gray;
+      border-left: 2px solid gray;
       width: 1px;
       min-width: 1px;
       height: 100%;

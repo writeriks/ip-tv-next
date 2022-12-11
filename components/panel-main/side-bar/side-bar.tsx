@@ -11,6 +11,7 @@ import contextReducerSelector from '../../../store/reducers/context-reducer/cons
 import uiReducerSelector from '../../../store/reducers/ui-reducer/ui-reducer-selector'
 
 import styles from '../../../styles/SideBar.module.scss'
+import Header from './header/header'
 
 const SideBar = () => {
   const dispatch = useDispatch()
@@ -26,12 +27,13 @@ const SideBar = () => {
 
   return (
     <div style={{ width: width }} className={styles.sideBarContainer}>
-      <div className={styles.sider}>
-        <label>SideBar</label>
+      <div className={styles.sidebarInner}>
+        <Header />
+        <div className={styles.channelListContainer}>
+          <label>Channel List</label>
+        </div>
       </div>
-      <button className={styles.hideSideBarButton} onClick={() => dispatch(setIsSideBarVisible(!isSideBarVisible))}>
-        <ArrowLeftIcon />
-      </button>
+
       <div
         aria-hidden
         className={styles.dragHitbox}

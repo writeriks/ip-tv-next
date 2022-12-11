@@ -9,7 +9,7 @@ export interface UIState {
 export const initialState: UIState = {
   isLoading: false,
   isSideBarVisible: true,
-  sideBarWidth: 150,
+  sideBarWidth: 250,
 }
 
 const uiSlice = createSlice({
