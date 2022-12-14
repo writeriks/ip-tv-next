@@ -10,5 +10,28 @@
     background-color: #6366f1;
     border-radius: 50px;
     box-shadow: 3px 5px;
+
+    .loginHeaderContainer {
+      padding-top: 10px;
+      height: 15%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+
+      .loginTitle {
+        font-weight: 800;
+        font-size: 30px;
+      }
+
+      .closeButton {
+        position: absolute;
+        right: 5%;
+      }
+
+      @media screen and (max-width: 900px) {
+        padding-top: 30px;
+      }
+    }
   }
 }
