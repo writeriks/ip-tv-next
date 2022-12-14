@@ -6,12 +6,26 @@
 
   .landingHeaderContainer {
     padding: 5px;
-    height: 15%;
+    height: 5%;
     background-color: gainsboro;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+
+    .headerConfiguration {
+      position: absolute;
+      right: 5%;
+      display: flex;
+
+      .syncButtonContainer {
+        padding-right: 50%;
+      }
+    }
+
+    @media screen and (max-width: 900px) {
+      height: 15%;
+    }
   }
 
   .categorySelection {

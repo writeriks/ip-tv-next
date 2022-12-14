@@ -10,6 +10,8 @@ class UiReducerSelector {
   getIsSideBarVisible = createSelector(this.getUiReducer, (ui) => ui.isSideBarVisible)
 
   getIsSideBarWidth = createSelector(this.getUiReducer, (ui) => ui.sideBarWidth)
+
+  getModal = createSelector(this.getUiReducer, (ui) => ui.modal)
 }
 
 const uiReducerSelector = new UiReducerSelector()
