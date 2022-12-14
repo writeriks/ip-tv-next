@@ -42,7 +42,11 @@
     .categoryButton {
       width: 20%;
       height: 50%;
-      background-color: red;
+      background: linear-gradient(to bottom right, #e66465, #6366f1);
+      border-radius: 20px;
+      font-size: 20px;
+      font-weight: 800;
+      color: white;
     }
   }
 }
