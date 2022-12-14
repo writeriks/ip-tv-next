@@ -1,0 +1,14 @@
+@use './mixins.module.scss';
+
+.loginModal {
+  @include mixins.modalLayout;
+
+  .loginContainer {
+    @include mixins.modalInner;
+    width: 50%;
+    height: 60%;
+    background-color: #6366f1;
+    border-radius: 50px;
+    box-shadow: 3px 5px;
+  }
+}

@@ -10,7 +10,9 @@ const Loading = () => {
   return (
     <div className={styles.loadingMain}>
       <div className={styles.loadingInner}>
-        <Lottie options={defaultAnimationProps(loadingAnimationData)} isClickToPauseDisabled={true} width={300} height={300} />
+        <div className={styles.loadingAnimationContainer}>
+          <Lottie options={defaultAnimationProps(loadingAnimationData)} isClickToPauseDisabled={true} width={300} height={300} />
+        </div>
       </div>
     </div>
   )

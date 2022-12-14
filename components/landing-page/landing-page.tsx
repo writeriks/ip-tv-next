@@ -1,23 +1,17 @@
 import React from 'react'
 
-import { selectedCategory } from '../../store/reducers/context-reducer/context-slice'
-
-import landingPageHelper from './landing-page-helper'
+import LoginModal from '../login-modal/login-modal'
+import LandingHeader from './landing-header/landing-header'
 
 import styles from '../../styles/LandingPage.module.scss'
+import CategorySelection from './category-selection/category-selection'
 
 const LandingPage = () => {
   return (
     <div className={styles.landingPageMain}>
-      <button className={styles.categoryButton} onClick={() => landingPageHelper.handleSelectedCategory(selectedCategory.LIVE)}>
-        Live
-      </button>
-      <button className={styles.categoryButton} onClick={() => landingPageHelper.handleSelectedCategory(selectedCategory.MOVIES)}>
-        Movies
-      </button>
-      <button className={styles.categoryButton} onClick={() => landingPageHelper.handleSelectedCategory(selectedCategory.SERIES)}>
-        Series
-      </button>
+      {/* <LoginModal /> */}
+      <LandingHeader />
+      <CategorySelection />
     </div>
   )
 }
