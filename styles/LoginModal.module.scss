@@ -6,14 +6,19 @@
   .loginContainer {
     @include mixins.modalInner;
     width: 50%;
-    height: 60%;
+    height: 50%;
     background-color: #6366f1;
-    border-radius: 50px;
+    border-radius: 30px;
     box-shadow: 3px 5px;
+
+    @media screen and (max-width: 900px) {
+      width: 60%;
+      height: 70%;
+    }
 
     .loginHeaderContainer {
       padding-top: 10px;
-      height: 15%;
+      height: 10%;
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -28,9 +33,45 @@
         position: absolute;
         right: 5%;
       }
+    }
 
-      @media screen and (max-width: 900px) {
-        padding-top: 30px;
+    .loginFormContainer {
+      padding: 20px 10px 5px 10px;
+      height: 85%;
+
+      .loginForm {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+
+        section {
+          width: 100%;
+
+          .inputLabel,
+          .submitButton {
+            display: grid;
+            grid-template-columns: 25% 75%;
+
+            a {
+              justify-self: right;
+              padding-right: 10px;
+              font-size: 20px;
+            }
+
+            .inputItem {
+              width: 90%;
+              color: black;
+              background-color: white;
+            }
+          }
+
+          .submitButton {
+            button:focus-visible {
+              box-shadow: 0 0 0 3px #404186;
+            }
+          }
+        }
       }
     }
   }
