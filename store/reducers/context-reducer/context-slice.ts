@@ -23,9 +23,6 @@ const contextSlice = createSlice({
   name: 'context',
   initialState,
   reducers: {
-    setChannels: (state, action: PayloadAction<parser.Playlist>) => {
-      state.channels = action.payload
-    },
     setIsMobile: (state, action: PayloadAction<boolean>) => {
       state.isMobile = action.payload
     },
@@ -35,6 +32,6 @@ const contextSlice = createSlice({
   },
 })
 
-export const { setChannels, setIsMobile, setSelectedCategory } = contextSlice.actions
+export const { setIsMobile, setSelectedCategory } = contextSlice.actions
 
 export default contextSlice.reducer

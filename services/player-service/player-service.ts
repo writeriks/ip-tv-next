@@ -1,9 +1,11 @@
 import { fetchChannels } from '../api/api'
 import parser from 'iptv-playlist-parser'
 import store from '../../store/redux-store'
-import { setChannels, setIsMobile } from '../../store/reducers/context-reducer/context-slice'
 import { parse } from 'next-useragent'
+
+import { setIsMobile } from '../../store/reducers/context-reducer/context-slice'
 import { setIsLoading } from '../../store/reducers/ui-reducer/ui-slice'
+import { setChannels } from '../../store/reducers/channels-reducer/channels-slice'
 
 class PlayerService {
   initializeChannels = async (username: string, password: string, url: string): Promise<void> => {
