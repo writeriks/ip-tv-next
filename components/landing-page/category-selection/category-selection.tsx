@@ -16,7 +16,7 @@ const CategorySelection = () => {
       </button>
       <button
         className={styles.categoryButton}
-        onClick={() => landingPageHelper.handleSelectedCategory(selectedCategory.MOVIES)}
+        onClick={() => landingPageHelper.handleSelectedCategory(selectedCategory.MOVIE)}
       >
         Movies
       </button>

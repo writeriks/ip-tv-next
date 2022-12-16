@@ -3,22 +3,16 @@ import parser from 'iptv-playlist-parser'
 
 export interface ChannelsState {
   allChannels: parser.Playlist
-  movies: parser.Playlist
-  series: parser.Playlist
-  liveChannels: parser.Playlist
-}
-
-export enum selectedCategory {
-  LIVE = 'LIVE',
-  MOVIES = 'MOEVIES',
-  SERIES = 'SERIES',
+  movies: parser.PlaylistItem[]
+  series: parser.PlaylistItem[]
+  liveChannels: parser.PlaylistItem[]
 }
 
 export const initialState: ChannelsState = {
   allChannels: {} as parser.Playlist,
-  movies: {} as parser.Playlist,
-  series: {} as parser.Playlist,
-  liveChannels: {} as parser.Playlist,
+  movies: [],
+  series: [],
+  liveChannels: [],
 }
 
 const channelsSlice = createSlice({
@@ -29,15 +23,15 @@ const channelsSlice = createSlice({
       state.allChannels = action.payload
     },
 
-    setMovies: (state, action: PayloadAction<parser.Playlist>) => {
-      state.movies = action.payload
+    setMovies: (state, action: PayloadAction<parser.PlaylistItem[]>) => {
+      state.movies = [...action.payload]
     },
 
-    setSeries: (state, action: PayloadAction<parser.Playlist>) => {
-      state.series = action.payload
+    setSeries: (state, action: PayloadAction<parser.PlaylistItem[]>) => {
+      state.series = [...action.payload]
     },
-    setLiveChannels: (state, action: PayloadAction<parser.Playlist>) => {
-      state.liveChannels = action.payload
+    setLiveChannels: (state, action: PayloadAction<parser.PlaylistItem[]>) => {
+      state.liveChannels = [...action.payload]
     },
   },
 })

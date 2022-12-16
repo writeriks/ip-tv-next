@@ -8,9 +8,9 @@ export interface ContextState {
 }
 
 export enum selectedCategory {
-  LIVE = 'LIVE',
-  MOVIES = 'MOEVIES',
-  SERIES = 'SERIES',
+  LIVE = 'live',
+  MOVIE = 'movie',
+  SERIES = 'series',
 }
 
 export const initialState: ContextState = {
