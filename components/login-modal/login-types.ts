@@ -11,3 +11,7 @@ export enum loginTypes {
 }
 
 export const defaultLoginProps = { username: '', password: '', url: '' }
+
+export enum loginStorage {
+  LOGIN_FORM = 'LOGIN_FORM',
+}

@@ -1,26 +1,33 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import { Button } from '@chakra-ui/react'
 import LoginSection from './login-section'
 
-import { defaultLoginProps, LoginProps, loginTypes } from './login-types'
-
-import styles from '../../styles/LoginModal.module.scss'
 import loginHelper from './login-helper'
+
+import { defaultLoginProps, LoginProps, loginStorage, loginTypes } from './login-types'
+import styles from '../../styles/LoginModal.module.scss'
+import playerService from '../../services/player-service/player-service'
 
 const LoginForm = () => {
   const [formData, setFormData] = useState<LoginProps>(defaultLoginProps)
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedLoginForm: LoginProps = JSON.parse(localStorage.getItem(loginStorage.LOGIN_FORM) as string)
+      setFormData((prevFormData) => ({ ...prevFormData, ...storedLoginForm }))
+    }
+  }, [])
+
   const onChange = useCallback(({ target }: React.ChangeEvent<HTMLInputElement>): void => {
     const formValue = { [target.name]: target.value }
-
     setFormData((prevFormData) => ({ ...prevFormData, ...formValue }))
   }, [])
 
   const onSubmitEvent = useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault()
-      loginHelper.handleUserSettings(formData)
+      playerService.initializeChannels(formData)
     },
     [formData]
   )

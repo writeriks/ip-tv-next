@@ -8,13 +8,22 @@ import styles from '../../../styles/LandingPage.module.scss'
 const CategorySelection = () => {
   return (
     <div className={styles.categorySelection}>
-      <button className={styles.categoryButton} onClick={() => landingPageHelper.handleSelectedCategory(selectedCategory.LIVE)}>
+      <button
+        className={styles.categoryButton}
+        onClick={() => landingPageHelper.handleSelectedCategory(selectedCategory.LIVE)}
+      >
         Live
       </button>
-      <button className={styles.categoryButton} onClick={() => landingPageHelper.handleSelectedCategory(selectedCategory.MOVIES)}>
+      <button
+        className={styles.categoryButton}
+        onClick={() => landingPageHelper.handleSelectedCategory(selectedCategory.MOVIES)}
+      >
         Movies
       </button>
-      <button className={styles.categoryButton} onClick={() => landingPageHelper.handleSelectedCategory(selectedCategory.SERIES)}>
+      <button
+        className={styles.categoryButton}
+        onClick={() => landingPageHelper.handleSelectedCategory(selectedCategory.SERIES)}
+      >
         Series
       </button>
     </div>

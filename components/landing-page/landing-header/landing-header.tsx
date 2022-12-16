@@ -7,6 +7,7 @@ import { RepeatIcon, SettingsIcon } from '@chakra-ui/icons'
 import { openLoginModal } from '../../../store/reducers/ui-reducer/ui-slice'
 
 import styles from '../../../styles/LandingPage.module.scss'
+import playerService from '../../../services/player-service/player-service'
 
 const LandingHeader = () => {
   const dispatch = useDispatch()
@@ -14,11 +15,11 @@ const LandingHeader = () => {
   return (
     <div className={styles.landingHeaderContainer}>
       <div className={styles.headerTitle}>
-        <label>M3U Player</label>
+        <label>Welcome to IPTV</label>
       </div>
       <div className={styles.headerConfiguration}>
         <div className={styles.syncButtonContainer}>
-          <button>
+          <button onClick={() => playerService.refreshChannels()}>
             <RepeatIcon boxSize={6} />
           </button>
         </div>

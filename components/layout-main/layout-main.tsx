@@ -10,10 +10,13 @@ import contextReducerSelector from '../../store/reducers/context-reducer/constex
 import uiReducerSelector from '../../store/reducers/ui-reducer/ui-reducer-selector'
 
 import styles from '../../styles/LayoutMain.module.scss'
+import useRefreshChannels from '../../services/hooks/use-refresh-channels'
 
 const LayoutMain = (): React.ReactElement => {
   const selectedCategory = useSelector(contextReducerSelector.getSelectedCategory)
   const isLoading = useSelector(uiReducerSelector.getIsLoading)
+
+  useRefreshChannels()
 
   const panelToRender = () => {
     if (selectedCategory) {

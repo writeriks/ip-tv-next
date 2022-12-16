@@ -7,11 +7,17 @@
   .landingHeaderContainer {
     padding: 5px;
     height: 5%;
-    background-color: gainsboro;
+    background-color: #6366f1;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+
+    .headerTitle {
+      color: white;
+      font-weight: 800;
+      font-size: 20px;
+    }
 
     .headerConfiguration {
       position: absolute;
@@ -47,6 +53,7 @@
       font-size: 20px;
       font-weight: 800;
       color: white;
+      box-shadow: 10px 5px;
     }
   }
 }

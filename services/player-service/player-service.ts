@@ -6,18 +6,36 @@ import { parse } from 'next-useragent'
 import { setIsMobile } from '../../store/reducers/context-reducer/context-slice'
 import { setIsLoading } from '../../store/reducers/ui-reducer/ui-slice'
 import { setChannels } from '../../store/reducers/channels-reducer/channels-slice'
+import { LoginProps, loginStorage } from '../../components/login-modal/login-types'
 
 class PlayerService {
-  initializeChannels = async (username: string, password: string, url: string): Promise<void> => {
+  initializeChannels = async (formdata: LoginProps): Promise<void> => {
+    await this.getAndStoreAllChannels(formdata)
+  }
+
+  refreshChannels = async () => {
+    const storedLoginForm = JSON.parse(localStorage.getItem(loginStorage.LOGIN_FORM) as string)
+    if (storedLoginForm) {
+      await this.getAndStoreAllChannels(storedLoginForm)
+    }
+  }
+
+  private async getAndStoreAllChannels(formdata: LoginProps) {
     try {
+      const { username, password, url } = formdata
       store.dispatch(setIsLoading(true))
       const playlistResponse = await fetchChannels(username, password, url)
       const { channels }: { channels: parser.Playlist } = await playlistResponse.json()
+      console.log('channels', channels)
 
-      store.dispatch(setChannels(channels))
+      if (Object.keys(channels)) {
+        store.dispatch(setChannels(channels))
+        localStorage.setItem(loginStorage.LOGIN_FORM, JSON.stringify(formdata))
+      }
       store.dispatch(setIsLoading(false))
     } catch (error) {
-      console.log('🚀 ~ file: player-service.ts:19 ~ PlayerService ~ initializeChannels= ~ error', error)
+      store.dispatch(setIsLoading(false))
+      console.log('error on getting channels', error)
     }
   }
 
