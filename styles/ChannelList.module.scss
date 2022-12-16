@@ -1,0 +1,21 @@
+.channelListContainer {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 1px);
+  height: 100%;
+  overflow-y: auto;
+
+  .gridItem {
+    display: flex;
+    align-items: center;
+
+    button {
+      width: 100%;
+      height: 100%;
+      color: white;
+      font-weight: 600;
+      word-wrap: break-word;
+    }
+  }
+}

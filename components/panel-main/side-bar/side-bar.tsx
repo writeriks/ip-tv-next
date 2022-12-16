@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import Header from './header/header'
+import ChannelList from './channel-list/channel-list'
 
 import { useSelector } from 'react-redux'
 
@@ -16,7 +17,6 @@ const SideBar = () => {
   const sidebarWidth = useSelector(uiReducerSelector.getIsSideBarWidth)
 
   const [isDragging, setIsDragging] = useState(false)
-
   const hookWidth = useDraggableSideBarWidth(isDragging, isMobile, setIsDragging)
   const width = hookWidth || sidebarWidth
 
@@ -24,9 +24,7 @@ const SideBar = () => {
     <div style={{ width: width }} className={styles.sideBarContainer}>
       <div className={styles.sidebarInner}>
         <Header />
-        <div className={styles.channelListContainer}>
-          <label>Channel List</label>
-        </div>
+        <ChannelList />
       </div>
 
       <div
