@@ -5,7 +5,12 @@ import { parse } from 'next-useragent'
 
 import { selectedCategory, setIsMobile } from '../../store/reducers/context-reducer/context-slice'
 import { setIsLoading } from '../../store/reducers/ui-reducer/ui-slice'
-import { setLiveChannels, setMovies, setSeries } from '../../store/reducers/channels-reducer/channels-slice'
+import {
+  setLiveChannels,
+  setMovies,
+  setSeries,
+  setSeriesPosters,
+} from '../../store/reducers/channels-reducer/channels-slice'
 
 import { LoginProps, loginStorage } from '../../components/login-modal/login-types'
 
@@ -40,11 +45,13 @@ class PlayerService {
         const liveChannelsObject = this.setLiveChannelsAndMoviesByTitle(liveChannels, liveChannelTitles)
         const moviesObject = this.setLiveChannelsAndMoviesByTitle(movies, movieTitles)
         const seriesObject = this.setLiveChannelsAndMoviesByTitle(series, serialTitles)
+        const seriesPosters = this.getSeriesPoster(series, serialTitles)
 
         await Promise.all([
           store.dispatch(setLiveChannels(liveChannelsObject)),
           store.dispatch(setMovies(moviesObject)),
           store.dispatch(setSeries(seriesObject)),
+          store.dispatch(setSeriesPosters(seriesPosters)),
         ])
 
         localStorage.setItem(loginStorage.LOGIN_FORM, JSON.stringify(formdata))
@@ -54,6 +61,12 @@ class PlayerService {
       store.dispatch(setIsLoading(false))
       console.log('error on getting channels', error)
     }
+  }
+
+  getSeriesPoster = (series: parser.PlaylistItem[], serialTitles: string[]) => {
+    const names = series.map((o) => o.name.split(/ S[0-9]/)[0])
+    const seriesPosters = series.filter(({ name }, index) => !names.includes(name.split(/ S[0-9]/)[0], index + 1))
+    return this.setLiveChannelsAndMoviesByTitle(seriesPosters, serialTitles)
   }
 
   getTitles = (playlistItem: parser.PlaylistItem[]) => {
@@ -96,7 +109,7 @@ class PlayerService {
         return 'getMovies'
 
       case selectedCategory.SERIES:
-        return 'getSeries'
+        return 'getSeriesPosters'
 
       default:
         return 'getLiveChannels'

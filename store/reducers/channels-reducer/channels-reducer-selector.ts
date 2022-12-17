@@ -7,9 +7,11 @@ class ChannelsReducerSelector {
 
   getMovies = createSelector(this.getChannelsReducer, (channels) => channels.movies)
 
+  getLiveChannels = createSelector(this.getChannelsReducer, (channels) => channels.liveChannels)
+
   getSeries = createSelector(this.getChannelsReducer, (channels) => channels.series)
 
-  getLiveChannels = createSelector(this.getChannelsReducer, (channels) => channels.liveChannels)
+  getSeriesPosters = createSelector(this.getChannelsReducer, (channels) => channels.seriesPosters)
 }
 
 const channelsReducerSelector = new ChannelsReducerSelector()

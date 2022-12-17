@@ -1,16 +1,20 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import playerService from '../../../services/player-service/player-service'
+
 import channelsReducerSelector from '../../../store/reducers/channels-reducer/channels-reducer-selector'
 import contextReducerSelector from '../../../store/reducers/context-reducer/constext-reducer-selector'
 
+import playerService from '../../../services/player-service/player-service'
+
 const ContentList = () => {
   const selectedTitle = useSelector(contextReducerSelector.getSelectedTitle)
-  const selectedCategory = useSelector(contextReducerSelector.getSelectedCategory)
+  const category = useSelector(contextReducerSelector.getSelectedCategory)
 
-  const playlistSelectorName = playerService.getSelectedPlaylist(selectedCategory)
+  const playlistSelectorName = playerService.getSelectedPlaylist(category)
   const playlist = useSelector(channelsReducerSelector[playlistSelectorName])
-  const playlistByTitle = playlist[selectedTitle]
+  const playlistBySelectedTitle = playlist[selectedTitle]
+
+  console.log('🚀 ~ file: content-list.tsx:14 ~ ContentList ~ playlistBySelectedTitle', playlistBySelectedTitle)
 
   return <div>ContentList</div>
 }
