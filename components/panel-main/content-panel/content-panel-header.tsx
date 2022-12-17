@@ -13,7 +13,7 @@ import { setSearchText } from '../../../store/reducers/context-reducer/context-s
 
 import styles from '../../../styles/ContentPanel.module.scss'
 
-const ContentTitle = () => {
+const ContentPanelHeader = () => {
   const dispatch = useDispatch()
   const isSideBarVisible = useSelector(uiReducerSelector.getIsSideBarVisible)
   const [localSearchText, setLocalSearchText] = useState('')
@@ -22,10 +22,13 @@ const ContentTitle = () => {
     dispatch(setSearchText(text))
   }, 300)
 
-  const onChange = useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
-    setLocalSearchText(event.target.value)
-    debouncedSearch(event.target.value)
-  }, [])
+  const onChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>): void => {
+      setLocalSearchText(event.target.value)
+      debouncedSearch(event.target.value)
+    },
+    [debouncedSearch]
+  )
 
   const clearSearchText = () => {
     setLocalSearchText('')
@@ -55,4 +58,4 @@ const ContentTitle = () => {
   )
 }
 
-export default ContentTitle
+export default ContentPanelHeader

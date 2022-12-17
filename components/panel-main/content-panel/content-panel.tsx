@@ -1,13 +1,13 @@
 import React from 'react'
 
-import ContentTitle from './content-title'
+import ContentPanelHeader from './content-panel-header'
+import ContentList from './content-list'
 
 import styles from '../../../styles/ContentPanel.module.scss'
-import ContentList from './content-list'
 
 const ContentPanel = () => (
   <div className={styles.contentPanelContainer}>
-    <ContentTitle />
+    <ContentPanelHeader />
     <ContentList />
   </div>
 )

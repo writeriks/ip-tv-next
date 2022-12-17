@@ -5,7 +5,7 @@ import channelsReducerSelector from '../../store/reducers/channels-reducer/chann
 import playerService from '../player-service/player-service'
 
 const useRefreshChannels = () => {
-  const allChannels = useSelector(channelsReducerSelector.getChannels)
+  const allChannels = useSelector(channelsReducerSelector.getLiveChannels)
   const didStartFetching = useRef<boolean>(false)
 
   useEffect(() => {

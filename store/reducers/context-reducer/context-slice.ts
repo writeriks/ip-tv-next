@@ -7,6 +7,9 @@ export interface ContextState {
   selectedCategory: selectedCategory | null
   selectedTitle: string
   searchText: string
+  liveChannelTitles: string[]
+  movieTitles: string[]
+  serialTitles: string[]
 }
 
 export enum selectedCategory {
@@ -21,6 +24,9 @@ export const initialState: ContextState = {
   selectedCategory: null,
   selectedTitle: '',
   searchText: '',
+  liveChannelTitles: [],
+  movieTitles: [],
+  serialTitles: [],
 }
 
 const contextSlice = createSlice({
@@ -36,6 +42,7 @@ const contextSlice = createSlice({
     setSelectedTitle: (state, action: PayloadAction<string>) => {
       state.selectedTitle = action.payload
     },
+
     setSearchText: (state, action: PayloadAction<string>) => {
       state.searchText = action.payload
     },

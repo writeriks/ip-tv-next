@@ -1,30 +1,31 @@
-import React, { useId, useMemo } from 'react'
+import React, { useId } from 'react'
 
 import { Grid, GridItem } from '@chakra-ui/react'
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import sideBarHelper from '../side-bar-helper'
+import playerService from '../../../../services/player-service/player-service'
 
-import channelsReducerSelector from '../../../../store/reducers/channels-reducer/channels-reducer-selector'
 import contextReducerSelector from '../../../../store/reducers/context-reducer/constext-reducer-selector'
+import channelsReducerSelector from '../../../../store/reducers/channels-reducer/channels-reducer-selector'
+
+import { setSelectedTitle } from '../../../../store/reducers/context-reducer/context-slice'
 
 import styles from '../../../../styles/ChannelList.module.scss'
-import { setSelectedTitle } from '../../../../store/reducers/context-reducer/context-slice'
 
 const ChannelList = () => {
   const dispatch = useDispatch()
   const selectedCategory = useSelector(contextReducerSelector.getSelectedCategory)
-  const selectorName = sideBarHelper.getSelectedPlaylistName(selectedCategory)
-  const playlist = useSelector(channelsReducerSelector[selectorName])
-  const id = useId()
+  const playlistSelectorName = playerService.getSelectedPlaylist(selectedCategory)
+  const playlist = useSelector(channelsReducerSelector[playlistSelectorName])
+  const playlistTitles = Object.keys(playlist)
 
-  const selectedTitles = useMemo(() => sideBarHelper.getTitles(playlist), [playlist])
+  const id = useId()
 
   return (
     <div className={styles.channelListContainer}>
-      <Grid templateRows={`repeat(${selectedTitles.length}, 1fr)`} gap={1}>
-        {selectedTitles.map((title) => (
+      <Grid templateRows={`repeat(${playlistTitles.length}, 1fr)`} gap={1}>
+        {playlistTitles.map((title) => (
           <GridItem className={styles.gridItem} key={`${id}--${title}`} w="100%" h="100%" bg="#404186">
             <button onClick={() => dispatch(setSelectedTitle(title))}>{title}</button>
           </GridItem>

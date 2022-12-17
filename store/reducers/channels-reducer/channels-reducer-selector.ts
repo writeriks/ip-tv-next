@@ -5,8 +5,6 @@ import { ChannelsState } from './channels-slice'
 class ChannelsReducerSelector {
   getChannelsReducer = (state: RootState): ChannelsState => state.channels
 
-  getChannels = createSelector(this.getChannelsReducer, (channels) => channels.allChannels)
-
   getMovies = createSelector(this.getChannelsReducer, (channels) => channels.movies)
 
   getSeries = createSelector(this.getChannelsReducer, (channels) => channels.series)
