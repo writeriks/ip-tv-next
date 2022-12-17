@@ -1,29 +1,15 @@
 import React from 'react'
 
-import { useDispatch, useSelector } from 'react-redux'
-
-import { HamburgerIcon } from '@chakra-ui/icons'
-
-import { setIsSideBarVisible } from '../../../store/reducers/ui-reducer/ui-slice'
-import uiReducerSelector from '../../../store/reducers/ui-reducer/ui-reducer-selector'
+import ContentTitle from './content-title'
 
 import styles from '../../../styles/ContentPanel.module.scss'
+import ContentList from './content-list'
 
-const ContentPanel = () => {
-  const dispatch = useDispatch()
-  const isSideBarVisible = useSelector(uiReducerSelector.getIsSideBarVisible)
-
-  return (
-    <div className={styles.contentPanelContainer}>
-      {!isSideBarVisible && (
-        <button className={styles.unHideSideBarButton} onClick={() => dispatch(setIsSideBarVisible(!isSideBarVisible))}>
-          <HamburgerIcon boxSize={6} />
-        </button>
-      )}
-
-      <div></div>
-    </div>
-  )
-}
+const ContentPanel = () => (
+  <div className={styles.contentPanelContainer}>
+    <ContentTitle />
+    <ContentList />
+  </div>
+)
 
 export default ContentPanel

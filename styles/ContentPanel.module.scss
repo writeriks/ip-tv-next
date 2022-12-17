@@ -1,10 +1,25 @@
 .contentPanelContainer {
   display: flex;
+  flex-direction: column;
   width: 100%;
-  background-color: red;
-  padding: 10px;
+  color: white;
+  font-weight: 600;
 
-  .unHideSideBarButton {
-    height: 30px;
+  .ContentTitleContainer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 10px 0 0 10px;
+
+    .unHideSideBarButton {
+      height: 30px;
+    }
+
+    .searchContainer {
+      width: 40%;
+      padding-left: 5%;
+      color: white;
+      font-weight: 600;
+    }
   }
 }

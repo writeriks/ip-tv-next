@@ -5,6 +5,8 @@ export interface ContextState {
   channels: parser.Playlist
   isMobile: boolean
   selectedCategory: selectedCategory | null
+  selectedTitle: string
+  searchText: string
 }
 
 export enum selectedCategory {
@@ -17,6 +19,8 @@ export const initialState: ContextState = {
   channels: {} as parser.Playlist,
   isMobile: false,
   selectedCategory: null,
+  selectedTitle: '',
+  searchText: '',
 }
 
 const contextSlice = createSlice({
@@ -29,9 +33,15 @@ const contextSlice = createSlice({
     setSelectedCategory: (state, action: PayloadAction<selectedCategory | null>) => {
       state.selectedCategory = action.payload
     },
+    setSelectedTitle: (state, action: PayloadAction<string>) => {
+      state.selectedTitle = action.payload
+    },
+    setSearchText: (state, action: PayloadAction<string>) => {
+      state.searchText = action.payload
+    },
   },
 })
 
-export const { setIsMobile, setSelectedCategory } = contextSlice.actions
+export const { setIsMobile, setSelectedCategory, setSelectedTitle, setSearchText } = contextSlice.actions
 
 export default contextSlice.reducer
