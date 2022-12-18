@@ -57,6 +57,7 @@ class PlayerService {
     }
   }
 
+  // TODO: Improve this function
   parseSeriesByTitle = (playlistItemArray: parser.PlaylistItem[], titles: string[]) => {
     const playlistObject: { [title: string]: { [serialName: string]: parser.PlaylistItem[] } } = {}
     for (let index = 0; index < titles.length; index++) {
