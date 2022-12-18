@@ -5,16 +5,19 @@ import channelsReducerSelector from '../../../store/reducers/channels-reducer/ch
 import contextReducerSelector from '../../../store/reducers/context-reducer/constext-reducer-selector'
 
 import playerService from '../../../services/player-service/player-service'
+import { selectedCategory } from '../../../store/reducers/context-reducer/context-slice'
 
 const ContentList = () => {
   const selectedTitle = useSelector(contextReducerSelector.getSelectedTitle)
   const category = useSelector(contextReducerSelector.getSelectedCategory)
+  const isSeries = category === selectedCategory.SERIES
 
   const playlistSelectorName = playerService.getSelectedPlaylist(category)
   const playlist = useSelector(channelsReducerSelector[playlistSelectorName])
-  const playlistBySelectedTitle = playlist[selectedTitle]
+  const parsedSeries = useSelector(channelsReducerSelector.getParsedSeries)
 
-  console.log('🚀 ~ file: content-list.tsx:14 ~ ContentList ~ playlistBySelectedTitle', playlistBySelectedTitle)
+  const playlistBySelectedTitle = isSeries ? parsedSeries[selectedTitle] : playlist[selectedTitle]
+  console.log('🚀 ~ file: content-list.tsx:20 ~ ContentList ~ playlistBySelectedTitle', playlistBySelectedTitle)
 
   return <div>ContentList</div>
 }

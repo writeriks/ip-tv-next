@@ -5,12 +5,7 @@ import { parse } from 'next-useragent'
 
 import { selectedCategory, setIsMobile } from '../../store/reducers/context-reducer/context-slice'
 import { setIsLoading } from '../../store/reducers/ui-reducer/ui-slice'
-import {
-  setLiveChannels,
-  setMovies,
-  setSeries,
-  setSeriesPosters,
-} from '../../store/reducers/channels-reducer/channels-slice'
+import { setLiveChannels, setMovies, setParsedSeries } from '../../store/reducers/channels-reducer/channels-slice'
 
 import { LoginProps, loginStorage } from '../../components/login-modal/login-types'
 
@@ -44,14 +39,13 @@ class PlayerService {
 
         const liveChannelsObject = this.setLiveChannelsAndMoviesByTitle(liveChannels, liveChannelTitles)
         const moviesObject = this.setLiveChannelsAndMoviesByTitle(movies, movieTitles)
-        const seriesObject = this.setLiveChannelsAndMoviesByTitle(series, serialTitles)
-        const seriesPosters = this.getSeriesPoster(series, serialTitles)
+
+        const seriesObject = this.parseSeriesByTitle(series, serialTitles)
 
         await Promise.all([
           store.dispatch(setLiveChannels(liveChannelsObject)),
           store.dispatch(setMovies(moviesObject)),
-          store.dispatch(setSeries(seriesObject)),
-          store.dispatch(setSeriesPosters(seriesPosters)),
+          store.dispatch(setParsedSeries(seriesObject)),
         ])
 
         localStorage.setItem(loginStorage.LOGIN_FORM, JSON.stringify(formdata))
@@ -63,7 +57,22 @@ class PlayerService {
     }
   }
 
-  getSeriesPoster = (series: parser.PlaylistItem[], serialTitles: string[]) => {
+  parseSeriesByTitle = (playlistItemArray: parser.PlaylistItem[], titles: string[]) => {
+    const playlistObject: { [title: string]: { [serialName: string]: parser.PlaylistItem[] } } = {}
+    for (let index = 0; index < titles.length; index++) {
+      const titleAtIndex = titles[index]
+      const serialsByGroupTitle = playlistItemArray.filter((playlistItem) => titleAtIndex === playlistItem.group.title)
+      const serialNames = Array.from(new Set(serialsByGroupTitle.map((o) => o.name.split(/ S[0-9]/)[0])))
+      for (let index = 0; index < serialNames.length; index++) {
+        const serialNameAtIndex = serialNames[index]
+        const serialArray = serialsByGroupTitle.filter((s) => serialNameAtIndex === s.name.split(/ S[0-9]/)[0])
+        playlistObject[titleAtIndex] = { ...playlistObject[titleAtIndex], [serialNameAtIndex]: { ...serialArray } }
+      }
+    }
+    return playlistObject
+  }
+
+  filterDuplicateSerialNames = (series: parser.PlaylistItem[], serialTitles: string[]) => {
     const names = series.map((o) => o.name.split(/ S[0-9]/)[0])
     const seriesPosters = series.filter(({ name }, index) => !names.includes(name.split(/ S[0-9]/)[0], index + 1))
     return this.setLiveChannelsAndMoviesByTitle(seriesPosters, serialTitles)
@@ -107,9 +116,6 @@ class PlayerService {
 
       case selectedCategory.MOVIE:
         return 'getMovies'
-
-      case selectedCategory.SERIES:
-        return 'getSeriesPosters'
 
       default:
         return 'getLiveChannels'

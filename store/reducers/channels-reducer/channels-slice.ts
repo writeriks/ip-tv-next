@@ -4,19 +4,25 @@ import parser from 'iptv-playlist-parser'
 export interface ChannelsState {
   movies: playlistDictionary
   liveChannels: playlistDictionary
-  series: playlistDictionary
-  seriesPosters: playlistDictionary
+  parsedSeries: ParsedSeries
 }
 
 export interface playlistDictionary {
   [key: string]: parser.PlaylistItem[]
 }
 
+export interface ParsedSeries {
+  [title: string]: ParsedSerialTitles
+}
+
+interface ParsedSerialTitles {
+  [serialName: string]: parser.PlaylistItem[]
+}
+
 export const initialState: ChannelsState = {
   movies: {},
   liveChannels: {},
-  series: {},
-  seriesPosters: {},
+  parsedSeries: {},
 }
 
 const channelsSlice = createSlice({
@@ -31,16 +37,12 @@ const channelsSlice = createSlice({
       state.liveChannels = action.payload
     },
 
-    setSeries: (state, action: PayloadAction<playlistDictionary>) => {
-      state.series = action.payload
-    },
-
-    setSeriesPosters: (state, action: PayloadAction<playlistDictionary>) => {
-      state.seriesPosters = action.payload
+    setParsedSeries: (state, action: PayloadAction<ParsedSeries>) => {
+      state.parsedSeries = action.payload
     },
   },
 })
 
-export const { setMovies, setSeries, setLiveChannels, setSeriesPosters } = channelsSlice.actions
+export const { setMovies, setParsedSeries, setLiveChannels } = channelsSlice.actions
 
 export default channelsSlice.reducer

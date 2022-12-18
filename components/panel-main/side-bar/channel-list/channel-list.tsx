@@ -9,16 +9,18 @@ import playerService from '../../../../services/player-service/player-service'
 import contextReducerSelector from '../../../../store/reducers/context-reducer/constext-reducer-selector'
 import channelsReducerSelector from '../../../../store/reducers/channels-reducer/channels-reducer-selector'
 
-import { setSelectedTitle } from '../../../../store/reducers/context-reducer/context-slice'
+import { selectedCategory, setSelectedTitle } from '../../../../store/reducers/context-reducer/context-slice'
 
 import styles from '../../../../styles/ChannelList.module.scss'
 
 const ChannelList = () => {
   const dispatch = useDispatch()
-  const selectedCategory = useSelector(contextReducerSelector.getSelectedCategory)
-  const playlistSelectorName = playerService.getSelectedPlaylist(selectedCategory)
-  const playlist = useSelector(channelsReducerSelector[playlistSelectorName])
-  const playlistTitles = Object.keys(playlist)
+  const category = useSelector(contextReducerSelector.getSelectedCategory)
+  const isSeries = category === selectedCategory.SERIES
+  const playlistSelectorNameForLiveAndMovies = playerService.getSelectedPlaylist(category)
+  const playlist = useSelector(channelsReducerSelector[playlistSelectorNameForLiveAndMovies])
+  const parsedSeries = useSelector(channelsReducerSelector.getParsedSeries)
+  const playlistTitles = isSeries ? Object.keys(parsedSeries) : Object.keys(playlist)
 
   const id = useId()
 
