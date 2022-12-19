@@ -40,7 +40,13 @@ class PlayerService {
         const liveChannelsObject = this.setLiveChannelsAndMoviesByTitle(liveChannels, liveChannelTitles)
         const moviesObject = this.setLiveChannelsAndMoviesByTitle(movies, movieTitles)
 
+        console.time()
         const seriesObject = this.parseSeriesByTitle(series, serialTitles)
+        console.log(
+          '🚀 ~ file: player-service.ts:44 ~ PlayerService ~ getAndStoreAllChannels ~ seriesObject',
+          seriesObject
+        )
+        console.timeEnd()
 
         await Promise.all([
           store.dispatch(setLiveChannels(liveChannelsObject)),
@@ -57,19 +63,17 @@ class PlayerService {
     }
   }
 
-  // TODO: Improve this function
   parseSeriesByTitle = (playlistItemArray: parser.PlaylistItem[], titles: string[]) => {
     const playlistObject: { [title: string]: { [serialName: string]: parser.PlaylistItem[] } } = {}
-    for (let index = 0; index < titles.length; index++) {
-      const titleAtIndex = titles[index]
-      const serialsByGroupTitle = playlistItemArray.filter((playlistItem) => titleAtIndex === playlistItem.group.title)
-      const serialNames = Array.from(new Set(serialsByGroupTitle.map((o) => o.name.split(/ S[0-9]/)[0])))
-      for (let index = 0; index < serialNames.length; index++) {
-        const serialNameAtIndex = serialNames[index]
-        const serialArray = serialsByGroupTitle.filter((s) => serialNameAtIndex === s.name.split(/ S[0-9]/)[0])
-        playlistObject[titleAtIndex] = { ...playlistObject[titleAtIndex], [serialNameAtIndex]: { ...serialArray } }
-      }
-    }
+    titles.forEach((title) => {
+      const serialsByGroupTitle = playlistItemArray.filter((playlistItem) => title === playlistItem.group.title)
+      const serialNames = [...new Set(serialsByGroupTitle.map((o) => o.name.split(/ S[0-9]/)[0]))]
+
+      return serialNames.map((serialName) => {
+        const serialArray = serialsByGroupTitle.filter((s) => serialName === s.name.split(/ S[0-9]/)[0])
+        playlistObject[title] = { ...playlistObject[title], [serialName]: { ...serialArray } }
+      })
+    })
     return playlistObject
   }
 

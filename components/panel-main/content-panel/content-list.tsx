@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 
 import channelsReducerSelector from '../../../store/reducers/channels-reducer/channels-reducer-selector'
@@ -10,13 +10,18 @@ import { selectedCategory } from '../../../store/reducers/context-reducer/contex
 const ContentList = () => {
   const selectedTitle = useSelector(contextReducerSelector.getSelectedTitle)
   const category = useSelector(contextReducerSelector.getSelectedCategory)
-  const isSeries = category === selectedCategory.SERIES
 
   const playlistSelectorName = playerService.getSelectedPlaylist(category)
   const playlist = useSelector(channelsReducerSelector[playlistSelectorName])
   const parsedSeries = useSelector(channelsReducerSelector.getParsedSeries)
 
-  const playlistBySelectedTitle = isSeries ? parsedSeries[selectedTitle] : playlist[selectedTitle]
+  const isSeries = category === selectedCategory.SERIES
+  const playlistBySelectedTitle = useMemo(
+    () => (isSeries ? parsedSeries[selectedTitle] : playlist[selectedTitle]),
+    [isSeries, parsedSeries, playlist, selectedTitle]
+  )
+
+  /* const playlistBySelectedTitle = isSeries ? parsedSeries[selectedTitle] : playlist[selectedTitle] */
   console.log('🚀 ~ file: content-list.tsx:20 ~ ContentList ~ playlistBySelectedTitle', playlistBySelectedTitle)
 
   return <div>ContentList</div>
