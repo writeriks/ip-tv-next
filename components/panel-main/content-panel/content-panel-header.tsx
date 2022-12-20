@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { debounce } from 'lodash'
 
 import uiReducerSelector from '../../../store/reducers/ui-reducer/ui-reducer-selector'
+import contextReducerSelector from '../../../store/reducers/context-reducer/constext-reducer-selector'
+
 import { setIsSideBarVisible } from '../../../store/reducers/ui-reducer/ui-slice'
 import { setSearchText } from '../../../store/reducers/context-reducer/context-slice'
 
@@ -16,6 +18,8 @@ import styles from '../../../styles/ContentPanel.module.scss'
 const ContentPanelHeader = () => {
   const dispatch = useDispatch()
   const isSideBarVisible = useSelector(uiReducerSelector.getIsSideBarVisible)
+  const selectedTitle = useSelector(contextReducerSelector.getSelectedTitle)
+
   const [localSearchText, setLocalSearchText] = useState('')
 
   const debouncedSearch = debounce((text) => {
@@ -32,17 +36,17 @@ const ContentPanelHeader = () => {
 
   const clearSearchText = () => {
     setLocalSearchText('')
-    dispatch(setSearchText(''))
+    debouncedSearch('')
   }
 
   return (
-    <div className={styles.ContentTitleContainer}>
+    <div className={styles.contentTitleContainer}>
       {!isSideBarVisible && (
         <button className={styles.unHideSideBarButton} onClick={() => dispatch(setIsSideBarVisible(!isSideBarVisible))}>
           <HamburgerIcon boxSize={6} />
         </button>
       )}
-
+      <div className={styles.title}>{selectedTitle}</div>
       <div className={styles.searchContainer}>
         <InputGroup>
           <InputLeftElement pointerEvents="none">{<SearchIcon color="gray.300" />}</InputLeftElement>

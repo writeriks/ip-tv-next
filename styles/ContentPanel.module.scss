@@ -5,11 +5,18 @@
   color: white;
   font-weight: 600;
 
-  .ContentTitleContainer {
+  .contentTitleContainer {
     width: 100%;
     display: flex;
     align-items: center;
     padding: 10px 0 0 10px;
+
+    .title {
+      width: 300px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
     .unHideSideBarButton {
       height: 30px;

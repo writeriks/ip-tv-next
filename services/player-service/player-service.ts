@@ -39,14 +39,7 @@ class PlayerService {
 
         const liveChannelsObject = this.setLiveChannelsAndMoviesByTitle(liveChannels, liveChannelTitles)
         const moviesObject = this.setLiveChannelsAndMoviesByTitle(movies, movieTitles)
-
-        console.time()
         const seriesObject = this.parseSeriesByTitle(series, serialTitles)
-        console.log(
-          '🚀 ~ file: player-service.ts:44 ~ PlayerService ~ getAndStoreAllChannels ~ seriesObject',
-          seriesObject
-        )
-        console.timeEnd()
 
         await Promise.all([
           store.dispatch(setLiveChannels(liveChannelsObject)),

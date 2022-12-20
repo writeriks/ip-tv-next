@@ -8,16 +8,21 @@ import playerService from '../../../../services/player-service/player-service'
 
 import contextReducerSelector from '../../../../store/reducers/context-reducer/constext-reducer-selector'
 import channelsReducerSelector from '../../../../store/reducers/channels-reducer/channels-reducer-selector'
+import uiReducerSelector from '../../../../store/reducers/ui-reducer/ui-reducer-selector'
 
 import { selectedCategory, setSelectedTitle } from '../../../../store/reducers/context-reducer/context-slice'
 
 import styles from '../../../../styles/ChannelList.module.scss'
+
+const SCROLL_BAR_WIDTH = 20
 
 const ChannelList = () => {
   const dispatch = useDispatch()
 
   const category = useSelector(contextReducerSelector.getSelectedCategory)
   const selectedTitle = useSelector(contextReducerSelector.getSelectedTitle)
+
+  const sidebarWidth = useSelector(uiReducerSelector.getIsSideBarWidth)
 
   const playlistSelectorNameForLiveAndMovies = playerService.getSelectedPlaylist(category)
   const playlist = useSelector(channelsReducerSelector[playlistSelectorNameForLiveAndMovies])
@@ -42,7 +47,12 @@ const ChannelList = () => {
             h="100%"
             bg={title === selectedTitle ? '#010242' : '#404186'}
           >
-            <button onClick={() => dispatch(setSelectedTitle(title))}>{title}</button>
+            <button
+              style={{ width: sidebarWidth - SCROLL_BAR_WIDTH }}
+              onClick={() => dispatch(setSelectedTitle(title))}
+            >
+              {title}
+            </button>
           </GridItem>
         ))}
       </Grid>
