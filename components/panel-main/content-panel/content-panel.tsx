@@ -1,7 +1,7 @@
 import React from 'react'
 
 import ContentPanelHeader from './content-panel-header'
-import ContentList from './content-list'
+import ContentList from './content-list/content-list'
 
 import styles from '../../../styles/ContentPanel.module.scss'
 

@@ -15,7 +15,7 @@ export interface ParsedSeries {
   [title: string]: ParsedSerialTitles
 }
 
-interface ParsedSerialTitles {
+export interface ParsedSerialTitles {
   [serialName: string]: parser.PlaylistItem[]
 }
 
