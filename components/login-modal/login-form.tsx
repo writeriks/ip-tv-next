@@ -3,11 +3,10 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { Button } from '@chakra-ui/react'
 import LoginSection from './login-section'
 
-import loginHelper from './login-helper'
+import playerService from '../../services/player-service/player-service'
 
 import { defaultLoginProps, LoginProps, loginStorage, loginTypes } from './login-types'
 import styles from '../../styles/LoginModal.module.scss'
-import playerService from '../../services/player-service/player-service'
 
 const LoginForm = () => {
   const [formData, setFormData] = useState<LoginProps>(defaultLoginProps)
