@@ -13,6 +13,7 @@ import uiReducerSelector from '../../../../store/reducers/ui-reducer/ui-reducer-
 import { selectedCategory, setSelectedTitle } from '../../../../store/reducers/context-reducer/context-slice'
 
 import styles from '../../../../styles/ChannelList.module.scss'
+import { setSelectedNonSerial, setSelectedSerial } from '../../../../store/reducers/channels-reducer/channels-slice'
 
 const SCROLL_BAR_WIDTH = 20
 
@@ -36,6 +37,12 @@ const ChannelList = () => {
 
   const id = useId()
 
+  const onChannelSelect = (title: string) => {
+    dispatch(setSelectedSerial(null))
+    dispatch(setSelectedNonSerial(null))
+    dispatch(setSelectedTitle(title))
+  }
+
   return (
     <div className={styles.channelListContainer}>
       <Grid templateRows={`repeat(${playlistTitles.length}, 1fr)`} gap={1}>
@@ -47,10 +54,7 @@ const ChannelList = () => {
             h="100%"
             bg={title === selectedTitle ? '#010242' : '#404186'}
           >
-            <button
-              style={{ width: sidebarWidth - SCROLL_BAR_WIDTH }}
-              onClick={() => dispatch(setSelectedTitle(title))}
-            >
+            <button style={{ width: sidebarWidth - SCROLL_BAR_WIDTH }} onClick={() => onChannelSelect(title)}>
               {title}
             </button>
           </GridItem>
