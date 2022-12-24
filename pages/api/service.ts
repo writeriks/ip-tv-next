@@ -7,7 +7,7 @@ const defaultOutput = 'mpegts'
 
 const getChannelsFromApi = nc()
   .use(cors())
-  .get(async (req: any, res: any) => {
+  .post(async (req: any, res: any) => {
     const { postUrl, username, password, type, output } = req.query
 
     const url = `${postUrl}?username=${username}&password=${password}&type=${defaultType}&output=${defaultOutput}`
