@@ -17,7 +17,6 @@ const getChannelsFromApi = nc()
     if (response.status === 200) {
       const textResponse = await response.text()
       const channels = parser.parse(textResponse)
-      console.log('🚀 ~ file: service.ts:20 ~ .post ~ channels', channels)
 
       res.status(200).json({ channels })
     }
