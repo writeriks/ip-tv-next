@@ -1,4 +1,6 @@
+import { setSelectedNonSerial, setSelectedSerial } from '../../store/reducers/channels-reducer/channels-slice'
 import { selectedCategory } from '../../store/reducers/context-reducer/context-slice'
+import store from '../../store/redux-store'
 
 class VideoPlayerHelper {
   getPlayUrl = (url: string, category: selectedCategory) => {
@@ -6,6 +8,11 @@ class VideoPlayerHelper {
       return url
     }
     return url.replace('.ts', '.m3u8')
+  }
+
+  onHeaderBackClick = () => {
+    store.dispatch(setSelectedSerial(null))
+    store.dispatch(setSelectedNonSerial(null))
   }
 }
 

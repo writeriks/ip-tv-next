@@ -5,11 +5,11 @@ import { useSelector } from 'react-redux'
 import ContentPanelHeader from './content-panel-header'
 import ContentList from './content-list/content-list'
 import SerialEpisodes from './serial-episodes/serial-episodes'
+import VideoPlayer from '../../video-player/video-player'
 
 import channelsReducerSelector from '../../../store/reducers/channels-reducer/channels-reducer-selector'
 
 import styles from '../../../styles/ContentPanel.module.scss'
-import VideoPlayer from '../../video-player/vidoe-player'
 
 const ContentPanel = () => {
   const selectedSerial = useSelector(channelsReducerSelector.getSelectedSerial)

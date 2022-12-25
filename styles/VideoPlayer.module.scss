@@ -5,13 +5,19 @@
   align-items: center;
   flex-direction: column;
 
-  .playItemTitle {
+  .playlistItemHeader {
     height: 10%;
     padding: 10px;
     width: 100%;
+    display: flex;
+    align-items: center;
 
     @media screen and (max-width: 900px) {
       padding: 0 0 0 10px;
+    }
+
+    .playItemTitle {
+      padding-left: 10px;
     }
   }
 

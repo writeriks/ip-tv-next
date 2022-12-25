@@ -10,6 +10,7 @@ import parser from 'iptv-playlist-parser'
 import { selectedCategory } from '../../store/reducers/context-reducer/context-slice'
 
 import styles from '../../styles/VideoPlayer.module.scss'
+import VideoPlayerHeader from './video-player-header'
 
 const ReactPlayer = dynamic(() => import('react-player'), { ssr: false })
 
@@ -25,7 +26,9 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ playlistItem }) => {
 
   return (
     <div className={styles.videoPlayerContainer}>
-      <div className={styles.playItemTitle}>{playlistItem.name}</div>
+      {/* <div className={styles.playItemTitle}>{playlistItem.name}</div> */}
+
+      <VideoPlayerHeader playlistItemName={playlistItem.name} />
       {/* mp4 for mobile and web, m3u8 only for mobile */}
       {isMobile || category !== selectedCategory.LIVE ? (
         <video className={styles.videoPlayer} src={playlistUrl} controls autoPlay={false}></video>
