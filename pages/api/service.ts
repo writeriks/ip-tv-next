@@ -5,6 +5,7 @@ import parser from 'iptv-playlist-parser'
 const defaultType = 'm3u_plus'
 const defaultOutput = 'mpegts'
 
+// I hate next
 const getChannelsFromApi = nc()
   .use(cors())
   .post(async (req: any, res: any) => {
