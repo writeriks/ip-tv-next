@@ -11,9 +11,11 @@ class ChannelsReducerSelector {
 
   getParsedSeries = createSelector(this.getChannelsReducer, (channels) => channels.parsedSeries)
 
+  getSelectedNonSerial = createSelector(this.getChannelsReducer, (channels) => channels.selectedNonSerial)
+
   getSelectedSerial = createSelector(this.getChannelsReducer, (channels) => channels.selectedSerial)
 
-  getSelectedNonSerial = createSelector(this.getChannelsReducer, (channels) => channels.selectedNonSerial)
+  getSelectedSerialEpisode = createSelector(this.getChannelsReducer, (channels) => channels.selectedSerialEpisode)
 }
 
 const channelsReducerSelector = new ChannelsReducerSelector()

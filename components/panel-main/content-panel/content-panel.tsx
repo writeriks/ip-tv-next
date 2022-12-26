@@ -10,20 +10,22 @@ import VideoPlayer from '../../video-player/video-player'
 import channelsReducerSelector from '../../../store/reducers/channels-reducer/channels-reducer-selector'
 
 import styles from '../../../styles/ContentPanel.module.scss'
+import { PlaylistItem } from 'iptv-playlist-parser'
 
 const ContentPanel = () => {
-  const selectedSerial = useSelector(channelsReducerSelector.getSelectedSerial)
   const selectedNonSerial = useSelector(channelsReducerSelector.getSelectedNonSerial)
+  const selectedSerial = useSelector(channelsReducerSelector.getSelectedSerial)
+  const selectedSerialEpisode = useSelector(channelsReducerSelector.getSelectedSerialEpisode)
 
   // if selectedNonSerial => render player pass selected object
   // if selectedSerial => render episodes with serialName
 
   const contentToRender = () => {
     if (selectedSerial) {
-      // TODO: render episodes
       return <SerialEpisodes />
-    } else if (selectedNonSerial) {
-      return <VideoPlayer playlistItem={selectedNonSerial} />
+    } else if (selectedNonSerial || selectedSerialEpisode) {
+      const selectedItem = selectedNonSerial || selectedSerialEpisode
+      return <VideoPlayer playlistItem={selectedItem as PlaylistItem} />
     } else {
       return <ContentList />
     }
