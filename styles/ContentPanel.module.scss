@@ -1,3 +1,5 @@
+@use './mixins.module.scss';
+
 .contentPanelContainer {
   display: flex;
   flex-direction: column;
@@ -5,32 +7,57 @@
   color: white;
   font-weight: 600;
 
-  .contentTitleContainer {
+  .topBarContainer {
     width: 100%;
-    display: flex;
-    align-items: center;
     padding: 10px 0 10px 10px;
     border-bottom: 1px solid white;
 
-    .title {
-      width: 200px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    .contentTopBar {
+      width: 100%;
+      display: flex;
+      align-items: center;
+
+      .title {
+        @include mixins.headerTitle;
+      }
+
+      .unHideSideBarButton {
+        height: 30px;
+      }
+
+      .searchContainer {
+        width: 40%;
+        padding-left: 5%;
+        color: white;
+        font-weight: 600;
+
+        @media screen and (max-width: 900px) {
+          width: 250px;
+        }
+      }
     }
 
-    .unHideSideBarButton {
-      height: 30px;
-    }
+    .serialSeasonsTopBar {
+      width: 100%;
+      display: flex;
+      align-items: center;
 
-    .searchContainer {
-      width: 40%;
-      padding-left: 5%;
-      color: white;
-      font-weight: 600;
+      .backButton {
+        width: 50px;
+        height: 50px;
+      }
 
-      @media screen and (max-width: 900px) {
-        width: 250px;
+      .episodeTitle {
+        margin-right: 10px;
+        @include mixins.headerTitle;
+      }
+
+      .seasonSelector {
+        width: 200px;
+
+        .selectOption {
+          color: black;
+        }
       }
     }
   }

@@ -7,13 +7,13 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { debounce } from 'lodash'
 
-import uiReducerSelector from '../../../store/reducers/ui-reducer/ui-reducer-selector'
-import contextReducerSelector from '../../../store/reducers/context-reducer/constext-reducer-selector'
+import uiReducerSelector from '../../../../store/reducers/ui-reducer/ui-reducer-selector'
+import contextReducerSelector from '../../../../store/reducers/context-reducer/constext-reducer-selector'
 
-import { setIsSideBarVisible } from '../../../store/reducers/ui-reducer/ui-slice'
-import { setSearchText } from '../../../store/reducers/context-reducer/context-slice'
+import { setIsSideBarVisible } from '../../../../store/reducers/ui-reducer/ui-slice'
+import { setSearchText } from '../../../../store/reducers/context-reducer/context-slice'
 
-import styles from '../../../styles/ContentPanel.module.scss'
+import styles from '../../../../styles/ContentPanel.module.scss'
 
 const ContentPanelHeader = () => {
   const dispatch = useDispatch()
@@ -40,12 +40,7 @@ const ContentPanelHeader = () => {
   }
 
   return (
-    <div className={styles.contentTitleContainer}>
-      {!isSideBarVisible && (
-        <button className={styles.unHideSideBarButton} onClick={() => dispatch(setIsSideBarVisible(!isSideBarVisible))}>
-          <HamburgerIcon boxSize={6} />
-        </button>
-      )}
+    <div className={styles.contentTopBar}>
       <div className={styles.title}>{selectedTitle}</div>
       <div className={styles.searchContainer}>
         <InputGroup>

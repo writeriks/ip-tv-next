@@ -15,4 +15,10 @@
   transform: translate(-50%, -50%);
 }
 
+@mixin headerTitle {
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 // #6366f1 color for main

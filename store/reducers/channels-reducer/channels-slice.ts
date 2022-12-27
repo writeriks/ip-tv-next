@@ -1,12 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import parser from 'iptv-playlist-parser'
+import channelsSliceHelper from './channels-slice-helper'
 
+export interface SerialsSeasonDictionary {
+  [key: string]: parser.PlaylistItem[]
+}
 export interface ChannelsState {
   movies: playlistDictionary
   liveChannels: playlistDictionary
   parsedSeries: ParsedSeries
   selectedNonSerial: parser.PlaylistItem | null
-  selectedSerial: parser.PlaylistItem[] | null
+  selectedSerial: SerialsSeasonDictionary | null
   selectedSerialEpisode: parser.PlaylistItem | null
 }
 
@@ -52,7 +56,7 @@ const channelsSlice = createSlice({
     },
 
     setSelectedSerial: (state, action: PayloadAction<parser.PlaylistItem[] | null>) => {
-      state.selectedSerial = action.payload
+      state.selectedSerial = channelsSliceHelper.handleSerialSeasons(action.payload)
     },
 
     setSelectedSerialEpisode: (state, action: PayloadAction<parser.PlaylistItem | null>) => {
