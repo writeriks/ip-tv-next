@@ -11,6 +11,7 @@ export interface ChannelsState {
   parsedSeries: ParsedSeries
   selectedNonSerial: parser.PlaylistItem | null
   selectedSerial: SerialsSeasonDictionary | null
+  selectedSeason: string
   selectedSerialEpisode: parser.PlaylistItem | null
 }
 
@@ -33,6 +34,7 @@ export const initialState: ChannelsState = {
   selectedNonSerial: null,
   selectedSerial: null,
   selectedSerialEpisode: null,
+  selectedSeason: '',
 }
 
 const channelsSlice = createSlice({
@@ -62,6 +64,10 @@ const channelsSlice = createSlice({
     setSelectedSerialEpisode: (state, action: PayloadAction<parser.PlaylistItem | null>) => {
       state.selectedSerialEpisode = action.payload
     },
+
+    setSelectedSeason: (state, action: PayloadAction<string>) => {
+      state.selectedSeason = action.payload
+    },
   },
 })
 
@@ -72,6 +78,7 @@ export const {
   setSelectedSerial,
   setSelectedNonSerial,
   setSelectedSerialEpisode,
+  setSelectedSeason,
 } = channelsSlice.actions
 
 export default channelsSlice.reducer

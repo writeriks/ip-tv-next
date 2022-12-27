@@ -1,4 +1,4 @@
-import { setSelectedSerial } from '../../../../store/reducers/channels-reducer/channels-slice'
+import { setSelectedSeason, setSelectedSerial } from '../../../../store/reducers/channels-reducer/channels-slice'
 import { setIsSideBarVisible } from '../../../../store/reducers/ui-reducer/ui-slice'
 import store from '../../../../store/redux-store'
 
@@ -9,6 +9,10 @@ class HeaderGeneralHelper {
 
   handleSideBarVisible = (isVisible: boolean) => {
     store.dispatch(setIsSideBarVisible(isVisible))
+  }
+
+  handleSeasonChange = (seasonValue: string) => {
+    store.dispatch(setSelectedSeason(seasonValue))
   }
 }
 

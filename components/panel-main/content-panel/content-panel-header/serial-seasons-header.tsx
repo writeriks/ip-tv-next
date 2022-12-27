@@ -1,22 +1,27 @@
 import React, { useId } from 'react'
 
-import { useSelector } from 'react-redux'
-
 import { ArrowBackIcon } from '@chakra-ui/icons'
-
-import channelsReducerSelector from '../../../../store/reducers/channels-reducer/channels-reducer-selector'
+import { Select } from '@chakra-ui/react'
 
 import headerGeneralHelper from './header-general-helper'
 
-import styles from '../../../../styles/ContentPanel.module.scss'
-import { Select } from '@chakra-ui/react'
+import { SerialsSeasonDictionary } from '../../../../store/reducers/channels-reducer/channels-slice'
 
-const SerialSeasonsHeader = () => {
-  const id = useId()
-  const selectedSerial = useSelector(channelsReducerSelector.getSelectedSerial)
+import styles from '../../../../styles/ContentPanel.module.scss'
+import { useSelector } from 'react-redux'
+import channelsReducerSelector from '../../../../store/reducers/channels-reducer/channels-reducer-selector'
+
+interface SerialSeasonsHeaderProps {
+  selectedSerial: SerialsSeasonDictionary
+}
+
+const SerialSeasonsHeader: React.FC<SerialSeasonsHeaderProps> = ({ selectedSerial }) => {
   console.log('🚀 ~ file: serial-seasons-header.tsx:17 ~ SerialSeasonsHeader ~ selectedSerial', selectedSerial)
-  const seasonTitles = selectedSerial && Object.keys(selectedSerial)
-  const firstEpisode = selectedSerial && seasonTitles && selectedSerial[seasonTitles[0]][0]
+  const selectedSeason = useSelector(channelsReducerSelector.getSelectedSeason)
+  const id = useId()
+  const seasonTitles = Object.keys(selectedSerial)
+  const firstEpisode = selectedSerial[seasonTitles[0]][0]
+  const defaultSeason = seasonTitles[0]
 
   return (
     <div className={styles.serialSeasonsTopBar}>
@@ -27,8 +32,9 @@ const SerialSeasonsHeader = () => {
 
       <div className={styles.seasonSelector}>
         <Select
-          defaultValue={seasonTitles ? seasonTitles[0] : 'none'}
-          onChange={(e) => console.log('CHANGED ', e.target.value)}
+          defaultValue={seasonTitles ? seasonTitles[0] : defaultSeason}
+          onChange={({ target: { value } }) => headerGeneralHelper.handleSeasonChange(value)}
+          value={selectedSeason}
         >
           {seasonTitles?.map((title) => (
             <option key={`${id}-${title}`} className={styles.selectOption} value={title}>

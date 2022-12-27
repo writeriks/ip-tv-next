@@ -15,11 +15,10 @@ import styles from '../../../../styles/ContentPanel.module.scss'
 const HeaderGeneral = () => {
   const selectedSerial = useSelector(channelsReducerSelector.getSelectedSerial)
   const isSideBarVisible = useSelector(uiReducerSelector.getIsSideBarVisible)
-  console.log('🚀 ~ file: header-general.tsx:8 ~ HeaderGeneral ~ selectedSerial', selectedSerial)
 
   const renderHeader = () => {
     if (selectedSerial) {
-      return <SerialSeasonsHeader />
+      return <SerialSeasonsHeader selectedSerial={selectedSerial} />
     }
     return <ContentPanelHeader />
   }

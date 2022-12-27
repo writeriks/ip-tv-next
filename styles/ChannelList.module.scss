@@ -5,6 +5,7 @@
   width: calc(100% - 1px);
   height: 100%;
   overflow-y: auto;
+  overflow-x: hidden;
 
   .gridItem {
     display: flex;

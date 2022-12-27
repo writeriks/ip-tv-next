@@ -35,6 +35,7 @@
   .dragHitbox {
     height: 100%;
     cursor: ew-resize;
+    z-index: 99999;
 
     .dragHandleDivider {
       border-left: 2px solid gray;
