@@ -1,4 +1,4 @@
-import React, { useId } from 'react'
+import React, { useEffect, useId } from 'react'
 
 import { ArrowBackIcon } from '@chakra-ui/icons'
 import { Select } from '@chakra-ui/react'
@@ -16,12 +16,15 @@ interface SerialSeasonsHeaderProps {
 }
 
 const SerialSeasonsHeader: React.FC<SerialSeasonsHeaderProps> = ({ selectedSerial }) => {
-  console.log('🚀 ~ file: serial-seasons-header.tsx:17 ~ SerialSeasonsHeader ~ selectedSerial', selectedSerial)
   const selectedSeason = useSelector(channelsReducerSelector.getSelectedSeason)
   const id = useId()
   const seasonTitles = Object.keys(selectedSerial)
   const firstEpisode = selectedSerial[seasonTitles[0]][0]
   const defaultSeason = seasonTitles[0]
+
+  useEffect(() => {
+    headerGeneralHelper.handleSeasonChange(defaultSeason)
+  }, [defaultSeason])
 
   return (
     <div className={styles.serialSeasonsTopBar}>

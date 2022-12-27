@@ -1,15 +1,33 @@
-import React from 'react'
+import { Grid } from '@chakra-ui/react'
+import React, { useId } from 'react'
 
 import { useSelector } from 'react-redux'
 
+import EpisodeItem from './episode-item'
+
 import channelsReducerSelector from '../../../../store/reducers/channels-reducer/channels-reducer-selector'
+import { SerialsSeasonDictionary } from '../../../../store/reducers/channels-reducer/channels-slice'
 
-import styles from '../../../../styles/ContentPanel.module.scss'
+import styles from '../../../../styles/SerialEpisodes.module.scss'
 
-const SerialEpisodes = () => {
-  const selectedSerial = useSelector(channelsReducerSelector.getSelectedSerial)
+interface SerialEpisodesProps {
+  selectedSerial: SerialsSeasonDictionary
+}
 
-  return <div className={styles.serialEpisodesContainer}>SerialEpisodes</div>
+const SerialEpisodes: React.FC<SerialEpisodesProps> = ({ selectedSerial }) => {
+  const id = useId()
+  const selectedSeason = useSelector(channelsReducerSelector.getSelectedSeason)
+  const episodesBySeason = selectedSerial[selectedSeason]
+
+  return (
+    <div className={styles.serialEpisodesContainer}>
+      <Grid templateRows="repeat(1, 1fr)" gap={1}>
+        {episodesBySeason.map((episode) => (
+          <EpisodeItem key={`${id}-${episode.name}`} episode={episode} />
+        ))}
+      </Grid>
+    </div>
+  )
 }
 
 export default SerialEpisodes

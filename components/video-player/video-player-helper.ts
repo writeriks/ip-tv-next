@@ -1,8 +1,5 @@
-import {
-  setSelectedNonSerial,
-  setSelectedSerial,
-  setSelectedSerialEpisode,
-} from '../../store/reducers/channels-reducer/channels-slice'
+import { PlaylistItem } from 'iptv-playlist-parser'
+import { setSelectedNonSerial, setSelectedSerialEpisode } from '../../store/reducers/channels-reducer/channels-slice'
 import { selectedCategory } from '../../store/reducers/context-reducer/context-slice'
 import store from '../../store/redux-store'
 
@@ -14,10 +11,13 @@ class VideoPlayerHelper {
     return url.replace('.ts', '.m3u8')
   }
 
-  onHeaderBackClick = () => {
-    store.dispatch(setSelectedSerial(null))
-    store.dispatch(setSelectedSerialEpisode(null))
-    store.dispatch(setSelectedNonSerial(null))
+  onHeaderBackClick = (episode: PlaylistItem | null) => {
+    if (episode) {
+      store.dispatch(setSelectedSerialEpisode(null))
+    } else {
+      store.dispatch(setSelectedSerialEpisode(null))
+      store.dispatch(setSelectedNonSerial(null))
+    }
   }
 }
 

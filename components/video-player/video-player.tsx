@@ -3,14 +3,16 @@ import dynamic from 'next/dynamic'
 
 import { useSelector } from 'react-redux'
 
+import VideoPlayerHeader from './video-player-header'
+
 import contextReducerSelector from '../../store/reducers/context-reducer/constext-reducer-selector'
+
 import videoPlayerHelper from './video-player-helper'
 
 import parser from 'iptv-playlist-parser'
 import { selectedCategory } from '../../store/reducers/context-reducer/context-slice'
 
 import styles from '../../styles/VideoPlayer.module.scss'
-import VideoPlayerHeader from './video-player-header'
 
 const ReactPlayer = dynamic(() => import('react-player'), { ssr: false })
 
@@ -26,8 +28,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ playlistItem }) => {
 
   return (
     <div className={styles.videoPlayerContainer}>
-      {/* <div className={styles.playItemTitle}>{playlistItem.name}</div> */}
-
       <VideoPlayerHeader playlistItemName={playlistItem.name} />
       {/* mp4 for mobile and web, m3u8 only for mobile */}
       {isMobile || category !== selectedCategory.LIVE ? (

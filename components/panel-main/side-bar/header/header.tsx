@@ -13,15 +13,22 @@ import { defaultAnimationProps } from '../../../../services/common/lottie-servic
 
 import styles from '../../../../styles/SideBar.module.scss'
 import { setIsSideBarVisible } from '../../../../store/reducers/ui-reducer/ui-slice'
-import { setSelectedNonSerial, setSelectedSerial } from '../../../../store/reducers/channels-reducer/channels-slice'
+import {
+  setSelectedNonSerial,
+  setSelectedSerial,
+  setSelectedSerialEpisode,
+} from '../../../../store/reducers/channels-reducer/channels-slice'
 
 const Header = () => {
   const dispatch = useDispatch()
-  const onBackItemClick = () => {
-    dispatch(setSelectedCategory(null))
-    dispatch(setSelectedTitle(''))
-    dispatch(setSelectedSerial(null))
-    dispatch(setSelectedNonSerial(null))
+  const onBackItemClick = async () => {
+    await Promise.all([
+      dispatch(setSelectedCategory(null)),
+      dispatch(setSelectedTitle('')),
+      dispatch(setSelectedSerial(null)),
+      dispatch(setSelectedNonSerial(null)),
+      dispatch(setSelectedSerialEpisode(null)),
+    ])
   }
 
   return (

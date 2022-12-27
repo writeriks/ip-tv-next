@@ -13,7 +13,11 @@ import uiReducerSelector from '../../../../store/reducers/ui-reducer/ui-reducer-
 import { selectedCategory, setSelectedTitle } from '../../../../store/reducers/context-reducer/context-slice'
 
 import styles from '../../../../styles/ChannelList.module.scss'
-import { setSelectedNonSerial, setSelectedSerial } from '../../../../store/reducers/channels-reducer/channels-slice'
+import {
+  setSelectedNonSerial,
+  setSelectedSerial,
+  setSelectedSerialEpisode,
+} from '../../../../store/reducers/channels-reducer/channels-slice'
 
 const SCROLL_BAR_WIDTH = 20
 
@@ -40,6 +44,7 @@ const ChannelList = () => {
   const onChannelSelect = (title: string) => {
     dispatch(setSelectedSerial(null))
     dispatch(setSelectedNonSerial(null))
+    dispatch(setSelectedSerialEpisode(null))
     dispatch(setSelectedTitle(title))
   }
 

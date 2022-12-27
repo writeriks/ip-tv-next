@@ -14,10 +14,11 @@ import styles from '../../../../styles/ContentPanel.module.scss'
 
 const HeaderGeneral = () => {
   const selectedSerial = useSelector(channelsReducerSelector.getSelectedSerial)
+  const selectedEpisode = useSelector(channelsReducerSelector.getSelectedSerialEpisode)
   const isSideBarVisible = useSelector(uiReducerSelector.getIsSideBarVisible)
 
   const renderHeader = () => {
-    if (selectedSerial) {
+    if (selectedSerial && !selectedEpisode) {
       return <SerialSeasonsHeader selectedSerial={selectedSerial} />
     }
     return <ContentPanelHeader />
