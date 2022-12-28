@@ -8,6 +8,7 @@ import { setIsLoading } from '../../store/reducers/ui-reducer/ui-slice'
 import { setLiveChannels, setMovies, setParsedSeries } from '../../store/reducers/channels-reducer/channels-slice'
 
 import { LoginProps, loginStorage } from '../../components/login-modal/login-types'
+import { ErrorObject, setError } from '../../store/reducers/error-reducer/error-slice'
 
 class PlayerService {
   initializeChannels = async (formdata: LoginProps): Promise<void> => {
@@ -52,7 +53,11 @@ class PlayerService {
       store.dispatch(setIsLoading(false))
     } catch (error) {
       store.dispatch(setIsLoading(false))
-      console.log('error on getting channels', error)
+      const errorObject: ErrorObject = {
+        title: 'Error on Getting Channels',
+        message: error as string,
+      }
+      store.dispatch(setError(errorObject))
     }
   }
 
