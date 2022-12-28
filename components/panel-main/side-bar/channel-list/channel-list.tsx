@@ -2,7 +2,7 @@ import React, { useId, useMemo } from 'react'
 
 import { Grid, GridItem } from '@chakra-ui/react'
 
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import playerService from '../../../../services/player-service/player-service'
 
@@ -10,26 +10,22 @@ import contextReducerSelector from '../../../../store/reducers/context-reducer/c
 import channelsReducerSelector from '../../../../store/reducers/channels-reducer/channels-reducer-selector'
 import uiReducerSelector from '../../../../store/reducers/ui-reducer/ui-reducer-selector'
 
-import { selectedCategory, setSelectedTitle } from '../../../../store/reducers/context-reducer/context-slice'
+import sideBarHelper from '../side-bar-helper'
+
+import { selectedCategory } from '../../../../store/reducers/context-reducer/context-slice'
 
 import styles from '../../../../styles/ChannelList.module.scss'
-import {
-  setSelectedNonSerial,
-  setSelectedSerial,
-  setSelectedSerialEpisode,
-} from '../../../../store/reducers/channels-reducer/channels-slice'
 
 const SCROLL_BAR_WIDTH = 20
 
 const ChannelList = () => {
-  const dispatch = useDispatch()
-
+  const id = useId()
   const category = useSelector(contextReducerSelector.getSelectedCategory)
   const selectedTitle = useSelector(contextReducerSelector.getSelectedTitle)
 
   const sidebarWidth = useSelector(uiReducerSelector.getIsSideBarWidth)
 
-  const playlistSelectorNameForLiveAndMovies = playerService.getSelectedPlaylist(category)
+  const playlistSelectorNameForLiveAndMovies = useMemo(() => playerService.getSelectedPlaylist(category), [category])
   const playlist = useSelector(channelsReducerSelector[playlistSelectorNameForLiveAndMovies])
   const parsedSeries = useSelector(channelsReducerSelector.getParsedSeries)
 
@@ -38,15 +34,6 @@ const ChannelList = () => {
     () => (isSeries ? Object.keys(parsedSeries) : Object.keys(playlist)),
     [isSeries, parsedSeries, playlist]
   )
-
-  const id = useId()
-
-  const onChannelSelect = (title: string) => {
-    dispatch(setSelectedSerial(null))
-    dispatch(setSelectedNonSerial(null))
-    dispatch(setSelectedSerialEpisode(null))
-    dispatch(setSelectedTitle(title))
-  }
 
   return (
     <div className={styles.channelListContainer}>
@@ -59,7 +46,10 @@ const ChannelList = () => {
             h="100%"
             bg={title === selectedTitle ? '#010242' : '#404186'}
           >
-            <button style={{ width: sidebarWidth - SCROLL_BAR_WIDTH }} onClick={() => onChannelSelect(title)}>
+            <button
+              style={{ width: sidebarWidth - SCROLL_BAR_WIDTH }}
+              onClick={() => sideBarHelper.handleChannelSelect(title)}
+            >
               {title}
             </button>
           </GridItem>
