@@ -20,7 +20,7 @@ const EpisodeItem: React.FC<EpisodeItemProps> = ({ episode }) => {
       onClick={() => serialEpisodesHelper.handleSelectedEpisode(episode)}
     >
       <div className={styles.imageContainer}>
-        <Img src={episode.tvg.logo} />
+        <Img src={episode.tvg.logo} loading="lazy" />
       </div>
       <Text fontSize="xl">{episode.name}</Text>
     </GridItem>
