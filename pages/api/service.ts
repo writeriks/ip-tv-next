@@ -13,13 +13,19 @@ const getChannelsFromApi = nc()
 
     const url = `${postUrl}?username=${username}&password=${password}&type=${defaultType}&output=${defaultOutput}`
 
-    const response = await fetch(url)
-
-    if (response.status === 200) {
-      const textResponse = await response.text()
-      const channels = parser.parse(textResponse)
-
-      res.status(200).json({ channels })
+    try {
+      const response = await fetch(url)
+      if (response.ok) {
+        const textResponse = await response.text()
+        const channels = parser.parse(textResponse)
+        res.status(200).json(channels)
+      } else {
+        res.statusMessage = 'Channels not found'
+        res.status(404).json()
+      }
+    } catch (error) {
+      res.statusMessage = error
+      res.status(404).json()
     }
   })
 
