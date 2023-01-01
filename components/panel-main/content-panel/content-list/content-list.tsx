@@ -9,7 +9,9 @@ import ChannelsAndMoviesList from './channels-and-movies-list'
 
 import channelsReducerSelector from '../../../../store/reducers/channels-reducer/channels-reducer-selector'
 import contextReducerSelector from '../../../../store/reducers/context-reducer/constext-reducer-selector'
+
 import playerService from '../../../../services/player-service/player-service'
+import contentListHelper from './content-list-helper'
 
 import { selectedCategory } from '../../../../store/reducers/context-reducer/context-slice'
 import { ParsedSerialTitles } from '../../../../store/reducers/channels-reducer/channels-slice'
@@ -27,11 +29,12 @@ const ContentList = () => {
   const playlistSelectorName = useMemo(() => playerService.getSelectedPlaylistSelector(category), [category])
   const playlist = useSelector(channelsReducerSelector[playlistSelectorName])
   const parsedSeries = useSelector(channelsReducerSelector.getParsedSeries)
+  const searchText = useSelector(contextReducerSelector.getSearchText)
 
   const isSeries = category === selectedCategory.SERIES
   const playlistBySelectedTitle = useMemo(
-    () => (isSeries ? parsedSeries[selectedTitle] : playlist[selectedTitle]),
-    [isSeries, parsedSeries, playlist, selectedTitle]
+    () => contentListHelper.getPlaylistByTitle(isSeries, selectedTitle, parsedSeries, playlist, searchText),
+    [isSeries, parsedSeries, playlist, selectedTitle, searchText]
   )
 
   const repeatedColumns = isMobile ? 3 : 5

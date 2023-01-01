@@ -12,10 +12,8 @@ const LoginForm = () => {
   const [formData, setFormData] = useState<LoginProps>(defaultLoginProps)
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const storedLoginForm: LoginProps = JSON.parse(localStorage.getItem(loginStorage.LOGIN_FORM) as string)
-      setFormData((prevFormData) => ({ ...prevFormData, ...storedLoginForm }))
-    }
+    const storedLoginForm: LoginProps = JSON.parse(localStorage.getItem(loginStorage.LOGIN_FORM) as string)
+    setFormData((prevFormData) => ({ ...prevFormData, ...storedLoginForm }))
   }, [])
 
   const onChange = useCallback(({ target }: React.ChangeEvent<HTMLInputElement>): void => {
