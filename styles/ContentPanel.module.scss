@@ -12,6 +12,14 @@
     padding: 10px 0 10px 10px;
     border-bottom: 1px solid white;
     display: flex;
+    align-items: center;
+
+    .unHideSideBarButton {
+      display: flex;
+      align-items: center;
+      height: 30px;
+      margin-right: 20px;
+    }
 
     .contentTopBar {
       width: 100%;
@@ -20,11 +28,6 @@
 
       .title {
         @include mixins.headerTitle;
-      }
-
-      .unHideSideBarButton {
-        height: 30px;
-        margin-right: 20px;
       }
 
       .searchContainer {

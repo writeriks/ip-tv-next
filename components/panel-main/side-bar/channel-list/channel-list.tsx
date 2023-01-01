@@ -1,8 +1,10 @@
 import React, { useId, useMemo } from 'react'
 
-import { Grid, GridItem } from '@chakra-ui/react'
+import { Grid } from '@chakra-ui/react'
 
 import { useSelector } from 'react-redux'
+
+import ChannelListItem from './channel-list-item'
 
 import playerService from '../../../../services/player-service/player-service'
 
@@ -10,13 +12,9 @@ import contextReducerSelector from '../../../../store/reducers/context-reducer/c
 import channelsReducerSelector from '../../../../store/reducers/channels-reducer/channels-reducer-selector'
 import uiReducerSelector from '../../../../store/reducers/ui-reducer/ui-reducer-selector'
 
-import sideBarHelper from '../side-bar-helper'
-
 import { selectedCategory } from '../../../../store/reducers/context-reducer/context-slice'
 
 import styles from '../../../../styles/ChannelList.module.scss'
-
-const SCROLL_BAR_WIDTH = 20
 
 const ChannelList = () => {
   const id = useId()
@@ -42,20 +40,12 @@ const ChannelList = () => {
     <div className={styles.channelListContainer}>
       <Grid templateRows={`repeat(${playlistTitles.length}, 1fr)`} gap={1}>
         {playlistTitles.map((title) => (
-          <GridItem
-            className={styles.gridItem}
+          <ChannelListItem
             key={`${id}--${title}`}
-            w="100%"
-            h="100%"
-            bg={title === selectedTitle ? '#010242' : '#404186'}
-          >
-            <button
-              style={{ width: sidebarWidth - SCROLL_BAR_WIDTH }}
-              onClick={() => sideBarHelper.handleChannelSelect(title)}
-            >
-              {title}
-            </button>
-          </GridItem>
+            selectedTitle={selectedTitle}
+            title={title}
+            sidebarWidth={sidebarWidth}
+          />
         ))}
       </Grid>
     </div>
