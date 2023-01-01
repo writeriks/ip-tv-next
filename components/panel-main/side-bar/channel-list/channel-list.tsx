@@ -25,7 +25,10 @@ const ChannelList = () => {
 
   const sidebarWidth = useSelector(uiReducerSelector.getIsSideBarWidth)
 
-  const playlistSelectorNameForLiveAndMovies = useMemo(() => playerService.getSelectedPlaylist(category), [category])
+  const playlistSelectorNameForLiveAndMovies = useMemo(
+    () => playerService.getSelectedPlaylistSelector(category),
+    [category]
+  )
   const playlist = useSelector(channelsReducerSelector[playlistSelectorNameForLiveAndMovies])
   const parsedSeries = useSelector(channelsReducerSelector.getParsedSeries)
 

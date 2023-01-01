@@ -32,27 +32,31 @@ class PlayerService {
     const { items: playlistItems } = channels as parser.Playlist
 
     if (playlistItems.length) {
-      const liveChannels = playlistItems.filter((channel) => channel.raw.includes(`/${selectedCategory.LIVE}/`))
-      const series = playlistItems.filter((channel) => channel.raw.includes(`/${selectedCategory.SERIES}/`))
-      const movies = playlistItems.filter((channel) => channel.raw.includes(`/${selectedCategory.MOVIE}/`))
-
-      const liveChannelTitles = this.getTitles(liveChannels)
-      const serialTitles = this.getTitles(series)
-      const movieTitles = this.getTitles(movies)
-
-      const liveChannelsObject = this.setLiveChannelsAndMoviesByTitle(liveChannels, liveChannelTitles)
-      const moviesObject = this.setLiveChannelsAndMoviesByTitle(movies, movieTitles)
-      const seriesObject = this.parseSeriesByTitle(series, serialTitles)
-
-      await Promise.all([
-        store.dispatch(setLiveChannels(liveChannelsObject)),
-        store.dispatch(setMovies(moviesObject)),
-        store.dispatch(setParsedSeries(seriesObject)),
-      ])
-
-      localStorage.setItem(loginStorage.LOGIN_FORM, JSON.stringify(formdata))
+      await this.parsePlaylistItems(playlistItems, formdata)
     }
     store.dispatch(setIsLoading(false))
+  }
+
+  private async parsePlaylistItems(playlistItems: parser.PlaylistItem[], formdata: LoginProps) {
+    const liveChannels = playlistItems.filter((channel) => channel.raw.includes(`/${selectedCategory.LIVE}/`))
+    const series = playlistItems.filter((channel) => channel.raw.includes(`/${selectedCategory.SERIES}/`))
+    const movies = playlistItems.filter((channel) => channel.raw.includes(`/${selectedCategory.MOVIE}/`))
+
+    const liveChannelTitles = this.getTitles(liveChannels)
+    const serialTitles = this.getTitles(series)
+    const movieTitles = this.getTitles(movies)
+
+    const liveChannelsObject = this.setLiveChannelsAndMoviesByTitle(liveChannels, liveChannelTitles)
+    const moviesObject = this.setLiveChannelsAndMoviesByTitle(movies, movieTitles)
+    const seriesObject = this.parseSeriesByTitle(series, serialTitles)
+
+    await Promise.all([
+      store.dispatch(setLiveChannels(liveChannelsObject)),
+      store.dispatch(setMovies(moviesObject)),
+      store.dispatch(setParsedSeries(seriesObject)),
+    ])
+
+    localStorage.setItem(loginStorage.LOGIN_FORM, JSON.stringify(formdata))
   }
 
   parseSeriesByTitle(playlistItemArray: parser.PlaylistItem[], titles: string[]) {
@@ -90,23 +94,7 @@ class PlayerService {
     return playlistObject
   }
 
-  getSelectedPlaylistTitle(category: selectedCategory | null) {
-    switch (category) {
-      case selectedCategory.LIVE:
-        return 'getLiveChannelTitles'
-
-      case selectedCategory.MOVIE:
-        return 'getMovieTitles'
-
-      case selectedCategory.SERIES:
-        return 'getSerialTitles'
-
-      default:
-        return 'getLiveChannelTitles'
-    }
-  }
-
-  getSelectedPlaylist(category: selectedCategory | null) {
+  getSelectedPlaylistSelector(category: selectedCategory | null) {
     switch (category) {
       case selectedCategory.LIVE:
         return 'getLiveChannels'

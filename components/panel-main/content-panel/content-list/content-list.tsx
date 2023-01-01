@@ -24,7 +24,7 @@ const ContentList = () => {
   const selectedTitle = useSelector(contextReducerSelector.getSelectedTitle)
   const category = useSelector(contextReducerSelector.getSelectedCategory)
 
-  const playlistSelectorName = useMemo(() => playerService.getSelectedPlaylist(category), [category])
+  const playlistSelectorName = useMemo(() => playerService.getSelectedPlaylistSelector(category), [category])
   const playlist = useSelector(channelsReducerSelector[playlistSelectorName])
   const parsedSeries = useSelector(channelsReducerSelector.getParsedSeries)
 
