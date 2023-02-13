@@ -3,7 +3,11 @@ import {
   setSelectedSerial,
   setSelectedSerialEpisode,
 } from '../../../store/reducers/channels-reducer/channels-slice'
-import { setSelectedCategory, setSelectedTitle } from '../../../store/reducers/context-reducer/context-slice'
+import {
+  setSearchText,
+  setSelectedCategory,
+  setSelectedTitle,
+} from '../../../store/reducers/context-reducer/context-slice'
 import { setIsSideBarVisible } from '../../../store/reducers/ui-reducer/ui-slice'
 import store from '../../../store/redux-store'
 
@@ -16,6 +20,7 @@ class SideBarHelper {
       store.dispatch(setSelectedNonSerial(null)),
       store.dispatch(setSelectedTitle('')),
       store.dispatch(setSelectedSerialEpisode(null)),
+      store.dispatch(setSearchText('')),
     ])
   }
 
