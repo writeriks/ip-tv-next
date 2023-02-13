@@ -10,9 +10,9 @@ interface ChannelsAndMoviesListProps {
 const ChannelsAndMoviesList: React.FC<ChannelsAndMoviesListProps> = ({ channelsOrMovies }) => {
   return (
     <>
-      {channelsOrMovies.map((playlistItem) => (
+      {channelsOrMovies.map((playlistItem, index) => (
         <ContentItem
-          key={`${playlistItem.name}`}
+          key={`${playlistItem.name}-${index}`}
           onClickCallback={() => contentListHelper.handleSelectedNonSerial(playlistItem)}
           playlistItem={playlistItem}
         />
