@@ -1,15 +1,15 @@
-import React, { useEffect, useId } from 'react'
+import React, { useEffect } from 'react'
 
 import { ArrowBackIcon } from '@chakra-ui/icons'
 import { Select } from '@chakra-ui/react'
 
+import { useSelector } from 'react-redux'
+import { SerialsSeasonDictionary } from '../../../../store/reducers/channels-reducer/channels-slice'
+import channelsReducerSelector from '../../../../store/reducers/channels-reducer/channels-reducer-selector'
+
 import headerGeneralHelper from './header-general-helper'
 
-import { SerialsSeasonDictionary } from '../../../../store/reducers/channels-reducer/channels-slice'
-
 import styles from '../../../../styles/ContentPanel.module.scss'
-import { useSelector } from 'react-redux'
-import channelsReducerSelector from '../../../../store/reducers/channels-reducer/channels-reducer-selector'
 
 interface SerialSeasonsHeaderProps {
   selectedSerial: SerialsSeasonDictionary
@@ -17,14 +17,14 @@ interface SerialSeasonsHeaderProps {
 
 const SerialSeasonsHeader: React.FC<SerialSeasonsHeaderProps> = ({ selectedSerial }) => {
   const selectedSeason = useSelector(channelsReducerSelector.getSelectedSeason)
-  const id = useId()
   const seasonTitles = Object.keys(selectedSerial)
+  const seasonToShow = selectedSeason || seasonTitles[0]
+
   const firstEpisode = selectedSerial[seasonTitles[0]][0]
-  const defaultSeason = seasonTitles[0]
 
   useEffect(() => {
-    headerGeneralHelper.handleSeasonChange(defaultSeason)
-  }, [defaultSeason])
+    headerGeneralHelper.handleSeasonChange(seasonToShow)
+  }, [seasonToShow])
 
   return (
     <div className={styles.serialSeasonsTopBar}>
@@ -35,12 +35,12 @@ const SerialSeasonsHeader: React.FC<SerialSeasonsHeaderProps> = ({ selectedSeria
 
       <div className={styles.seasonSelector}>
         <Select
-          defaultValue={seasonTitles ? seasonTitles[0] : defaultSeason}
+          defaultValue={seasonToShow}
           onChange={({ target: { value } }) => headerGeneralHelper.handleSeasonChange(value)}
-          value={selectedSeason}
+          value={seasonToShow}
         >
-          {seasonTitles?.map((title) => (
-            <option key={`${id}-${title}`} className={styles.selectOption} value={title}>
+          {seasonTitles?.map((title, index) => (
+            <option key={`${index}-${title}`} className={styles.selectOption} value={title}>
               {title}
             </option>
           ))}

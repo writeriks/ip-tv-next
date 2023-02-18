@@ -5,6 +5,7 @@ import store from '../../../../store/redux-store'
 class HeaderGeneralHelper {
   handleBackSeasons = () => {
     store.dispatch(setSelectedSerial(null))
+    store.dispatch(setSelectedSeason(null))
   }
 
   handleSideBarVisible = (isVisible: boolean) => {

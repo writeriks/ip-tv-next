@@ -6,11 +6,13 @@ import {
   setSelectedNonSerial,
   setSelectedSerial,
 } from '../../../../store/reducers/channels-reducer/channels-slice'
+import { setSearchText } from '../../../../store/reducers/context-reducer/context-slice'
 import store from '../../../../store/redux-store'
 
 class ContentListHelper {
   handleSelectedSerial = (playlistItems: PlaylistItem[]) => {
     store.dispatch(setSelectedSerial(playlistItems))
+    store.dispatch(setSearchText(''))
   }
 
   handleSelectedNonSerial = (playlistItem: PlaylistItem) => {

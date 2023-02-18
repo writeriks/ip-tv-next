@@ -1,5 +1,6 @@
 import {
   setSelectedNonSerial,
+  setSelectedSeason,
   setSelectedSerial,
   setSelectedSerialEpisode,
 } from '../../../store/reducers/channels-reducer/channels-slice'
@@ -15,11 +16,11 @@ class SideBarHelper {
   onBackItemClick = async () => {
     await Promise.all([
       store.dispatch(setSelectedCategory(null)),
-      store.dispatch(setSelectedTitle('')),
       store.dispatch(setSelectedSerial(null)),
       store.dispatch(setSelectedNonSerial(null)),
-      store.dispatch(setSelectedTitle('')),
       store.dispatch(setSelectedSerialEpisode(null)),
+      store.dispatch(setSelectedSeason(null)),
+      store.dispatch(setSelectedTitle('')),
       store.dispatch(setSearchText('')),
     ])
   }
@@ -34,6 +35,8 @@ class SideBarHelper {
       store.dispatch(setSelectedNonSerial(null)),
       store.dispatch(setSelectedSerialEpisode(null)),
       store.dispatch(setSelectedTitle(title)),
+      store.dispatch(setSelectedSeason(null)),
+      store.dispatch(setSearchText('')),
     ])
   }
 }

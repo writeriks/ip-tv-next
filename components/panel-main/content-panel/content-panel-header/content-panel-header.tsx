@@ -20,7 +20,9 @@ const ContentPanelHeader = () => {
   const [localSearchText, setLocalSearchText] = useState('')
 
   const debouncedSearch = debounce((text) => {
-    dispatch(setSearchText(text))
+    if (selectedTitle) {
+      dispatch(setSearchText(text))
+    }
   }, 300)
 
   const onChange = useCallback(

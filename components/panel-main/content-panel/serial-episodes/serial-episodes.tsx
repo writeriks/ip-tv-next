@@ -1,5 +1,5 @@
 import { Grid } from '@chakra-ui/react'
-import React, { useId } from 'react'
+import React from 'react'
 
 import { useSelector } from 'react-redux'
 
@@ -15,15 +15,14 @@ interface SerialEpisodesProps {
 }
 
 const SerialEpisodes: React.FC<SerialEpisodesProps> = ({ selectedSerial }) => {
-  const id = useId()
-  const selectedSeason = useSelector(channelsReducerSelector.getSelectedSeason)
+  const selectedSeason = useSelector(channelsReducerSelector.getSelectedSeason) as string
   const episodesBySeason = selectedSerial[selectedSeason]
 
   return (
     <div className={styles.serialEpisodesContainer}>
       <Grid templateRows="repeat(1, 1fr)" gap={1}>
-        {episodesBySeason.map((episode) => (
-          <EpisodeItem key={`${id}-${episode.name}`} episode={episode} />
+        {episodesBySeason.map((episode, index) => (
+          <EpisodeItem key={`${index}-${episode.name}`} episode={episode} />
         ))}
       </Grid>
     </div>
