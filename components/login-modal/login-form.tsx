@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react'
 
-import { Button } from '@chakra-ui/react'
-import LoginSection from './login-section'
+import LoginInput from './login-input'
+import RememberMeCheckbox from './remember-me-checkbox'
+import SubmitButton from './submit-button'
 
 import playerService from '../../services/player-service/player-service'
 
@@ -17,7 +18,8 @@ const LoginForm = () => {
   }, [])
 
   const onChange = useCallback(({ target }: React.ChangeEvent<HTMLInputElement>): void => {
-    const formValue = { [target.name]: target.value }
+    const isCheckbox = target.type === 'checkbox'
+    const formValue = { [target.name]: isCheckbox ? target.checked : target.value }
     setFormData((prevFormData) => ({ ...prevFormData, ...formValue }))
   }, [])
 
@@ -33,17 +35,19 @@ const LoginForm = () => {
   return (
     <div className={styles.loginFormContainer}>
       <form onSubmit={onSubmitEvent} className={styles.loginForm} autoComplete="on">
-        <LoginSection label={loginTypes.username} value={formData.username} onChange={onChange} type="text" />
-        <LoginSection label={loginTypes.password} value={formData.password} onChange={onChange} type="password" />
-        <LoginSection label={loginTypes.url} value={formData.url} onChange={onChange} type="url" />
-
         <section>
-          <div className={styles.submitButton}>
-            <a></a>
-            <Button type="submit" className={styles.inputItem}>
-              Submit
-            </Button>
-          </div>
+          <LoginInput label={loginTypes.url} value={formData.url} onChange={onChange} type="url" />
+        </section>
+        <section>
+          <RememberMeCheckbox
+            label="Remember Me"
+            name="rememberMe"
+            isChecked={formData.rememberMe}
+            onChange={onChange}
+          />
+        </section>
+        <section>
+          <SubmitButton />
         </section>
       </form>
     </div>

@@ -2,19 +2,17 @@ import nc from 'next-connect'
 import cors from 'cors'
 import parser from 'iptv-playlist-parser'
 
-const defaultType = 'm3u_plus'
-const defaultOutput = 'mpegts'
-
 // I hate next
 const getChannelsFromApi = nc()
   .use(cors())
-  .post(async (req: any, res: any) => {
-    const { postUrl, username, password, type, output } = req.query
+  .get(async (req: any, res: any) => {
+    const splitUrlFrom = 'url='
+    const { url } = req
 
-    const url = `${postUrl}?username=${username}&password=${password}&type=${defaultType}&output=${defaultOutput}`
+    const requestUrl = url.split(splitUrlFrom)[1]
 
     try {
-      const response = await fetch(url)
+      const response = await fetch(requestUrl)
       if (response.ok) {
         const textResponse = await response.text()
         const channels = parser.parse(textResponse)

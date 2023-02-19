@@ -5,8 +5,8 @@
 
   .loginContainer {
     @include mixins.modalInner;
-    width: 50%;
-    height: 50%;
+    width: 40%;
+    height: 40%;
     background-color: #6366f1;
     border-radius: 30px;
     box-shadow: 3px 5px;
@@ -38,22 +38,27 @@
     .loginFormContainer {
       padding: 20px 10px 5px 10px;
       height: 85%;
+      width: 100%;
+      display: flex;
+      align-items: center;
 
       .loginForm {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
+        width: 100%;
 
         section {
           width: 100%;
+          padding-bottom: 10px;
 
-          .inputLabel,
-          .submitButton {
+          .inputGrid,
+          .submitButtonGrid,
+          .rememberMeGrid {
             display: grid;
             grid-template-columns: 25% 75%;
+            align-items: center;
+          }
 
-            a {
+          .inputGrid {
+            span {
               justify-self: right;
               padding-right: 10px;
               font-size: 20px;
@@ -66,7 +71,25 @@
             }
           }
 
-          .submitButton {
+          .rememberMeGrid {
+            .rememberMeCheckbox {
+              display: flex;
+
+              span:focus-visible {
+                box-shadow: 0 0 0 3px #404186;
+              }
+
+              label {
+                font-size: 15px;
+              }
+            }
+          }
+
+          .submitButtonGrid {
+            button {
+              width: 90%;
+            }
+
             button:focus-visible {
               box-shadow: 0 0 0 3px #404186;
             }

@@ -32,16 +32,24 @@ class PlayerService {
   }
 
   private async getAndStoreAllChannels(formdata: LoginProps) {
-    const { username, password, url } = formdata
+    const { url, rememberMe } = formdata
     store.dispatch(setIsLoading(true))
-    const channels = await fetchChannels(username, password, url)
+    const channels = await fetchChannels(url)
     const { items: playlistItems } = channels as parser.Playlist
 
     if (playlistItems.length) {
       await this.parsePlaylistItems(playlistItems)
-      localStorage.setItem(loginStorage.LOGIN_FORM, JSON.stringify(formdata))
+      this.handleCrendentials(rememberMe, formdata)
     }
     store.dispatch(setIsLoading(false))
+  }
+
+  private handleCrendentials(rememberMe: boolean, formdata: LoginProps) {
+    if (rememberMe) {
+      localStorage.setItem(loginStorage.LOGIN_FORM, JSON.stringify(formdata))
+    } else {
+      localStorage.removeItem(loginStorage.LOGIN_FORM)
+    }
   }
 
   private async parsePlaylistItems(playlistItems: parser.PlaylistItem[]) {
