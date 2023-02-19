@@ -1,9 +1,9 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-import { HamburgerIcon } from '@chakra-ui/icons'
 import ContentPanelHeader from './content-panel-header'
 import SerialSeasonsHeader from './serial-seasons-header'
+import HamburgerButton from './hamburger-button'
 
 import channelsReducerSelector from '../../../../store/reducers/channels-reducer/channels-reducer-selector'
 import uiReducerSelector from '../../../../store/reducers/ui-reducer/ui-reducer-selector'
@@ -27,12 +27,10 @@ const HeaderGeneral = () => {
   return (
     <div className={styles.topBarContainer}>
       {!isSideBarVisible && (
-        <button
+        <HamburgerButton
           className={styles.unHideSideBarButton}
           onClick={() => headerGeneralHelper.handleSideBarVisible(!isSideBarVisible)}
-        >
-          <HamburgerIcon boxSize={6} />
-        </button>
+        />
       )}
       {renderHeader()}
     </div>

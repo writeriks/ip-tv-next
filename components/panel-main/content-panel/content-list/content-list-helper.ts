@@ -23,13 +23,15 @@ class ContentListHelper {
     isSeries: boolean,
     selectedTitle: string,
     parsedSeries?: ParsedSeries,
-    playlist?: ParsedNonSerials,
+    parsedNonSerials?: ParsedNonSerials,
     searchText?: string
   ) => {
     if (isSeries && parsedSeries) {
       return searchText ? this.filteredSerials(parsedSeries[selectedTitle], searchText) : parsedSeries[selectedTitle]
-    } else if (playlist) {
-      return searchText ? this.filteredChannelsOrMovies(playlist[selectedTitle], searchText) : playlist[selectedTitle]
+    } else if (parsedNonSerials) {
+      return searchText
+        ? this.filteredChannelsOrMovies(parsedNonSerials[selectedTitle], searchText)
+        : parsedNonSerials[selectedTitle]
     }
   }
 

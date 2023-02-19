@@ -27,19 +27,19 @@ const ContentList = () => {
   const category = useSelector(contextReducerSelector.getSelectedCategory)
 
   const playlistSelectorName = useMemo(() => playerService.getSelectedPlaylistSelector(category), [category])
-  const playlist = useSelector(channelsReducerSelector[playlistSelectorName])
+  const parsedNonSerials = useSelector(channelsReducerSelector[playlistSelectorName])
   const parsedSeries = useSelector(channelsReducerSelector.getParsedSeries)
   const searchText = useSelector(contextReducerSelector.getSearchText)
 
   const isSeries = category === selectedCategory.SERIES
   const playlistBySelectedTitle = useMemo(
-    () => contentListHelper.getPlaylistByTitle(isSeries, selectedTitle, parsedSeries, playlist, searchText),
-    [isSeries, parsedSeries, playlist, selectedTitle, searchText]
+    () => contentListHelper.getPlaylistByTitle(isSeries, selectedTitle, parsedSeries, parsedNonSerials, searchText),
+    [isSeries, parsedSeries, parsedNonSerials, selectedTitle, searchText]
   )
 
-  const repeatedColumns = isMobile ? 3 : 5
+  const numberOfContentColumns = isMobile ? 3 : 5
 
-  const mappedPlaylist = (): React.ReactNode => {
+  const contentsToRender = (): React.ReactNode => {
     if (playlistBySelectedTitle) {
       if (isSeries) {
         return <SeriesList serials={playlistBySelectedTitle as ParsedSerialTitles} />
@@ -51,8 +51,8 @@ const ContentList = () => {
 
   return (
     <div className={styles.ContentListContainer}>
-      <Grid templateColumns={`repeat(${repeatedColumns}, 1fr)`} gap={1}>
-        {mappedPlaylist()}
+      <Grid templateColumns={`repeat(${numberOfContentColumns}, 1fr)`} gap={1}>
+        {contentsToRender()}
       </Grid>
     </div>
   )

@@ -6,8 +6,9 @@ import { RepeatIcon, SettingsIcon } from '@chakra-ui/icons'
 
 import { openLoginModal } from '../../../store/reducers/ui-reducer/ui-slice'
 
-import styles from '../../../styles/LandingPage.module.scss'
 import playerService from '../../../services/player-service/player-service'
+
+import styles from '../../../styles/LandingPage.module.scss'
 
 const LandingHeader = () => {
   const dispatch = useDispatch()

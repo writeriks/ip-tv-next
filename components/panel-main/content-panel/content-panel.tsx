@@ -19,11 +19,13 @@ const ContentPanel = () => {
   const selectedSerialEpisode = useSelector(channelsReducerSelector.getSelectedSerialEpisode)
   const selectedSeason = useSelector(channelsReducerSelector.getSelectedSeason)
 
+  const selectedItemToPlay = (selectedNonSerial || selectedSerialEpisode) as PlaylistItem
+  const shouldRenderSelectedSerialEpisodes = selectedSerial && selectedSeason
+
   const contentToRender = () => {
-    if (selectedNonSerial || selectedSerialEpisode) {
-      const selectedItem = selectedNonSerial || selectedSerialEpisode
-      return <VideoPlayer playlistItem={selectedItem as PlaylistItem} />
-    } else if (selectedSerial && selectedSeason) {
+    if (selectedItemToPlay) {
+      return <VideoPlayer playlistItem={selectedItemToPlay} />
+    } else if (shouldRenderSelectedSerialEpisodes) {
       return <SerialEpisodes selectedSerial={selectedSerial} />
     } else {
       return <ContentList />
