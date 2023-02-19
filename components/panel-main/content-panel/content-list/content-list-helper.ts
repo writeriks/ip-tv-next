@@ -2,7 +2,7 @@ import { PlaylistItem } from 'iptv-playlist-parser'
 import {
   ParsedSerialTitles,
   ParsedSeries,
-  playlistDictionary,
+  ParsedNonSerials,
   setSelectedNonSerial,
   setSelectedSerial,
 } from '../../../../store/reducers/channels-reducer/channels-slice'
@@ -23,7 +23,7 @@ class ContentListHelper {
     isSeries: boolean,
     selectedTitle: string,
     parsedSeries?: ParsedSeries,
-    playlist?: playlistDictionary,
+    playlist?: ParsedNonSerials,
     searchText?: string
   ) => {
     if (isSeries && parsedSeries) {

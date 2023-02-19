@@ -6,8 +6,8 @@ export interface SerialsSeasonDictionary {
   [key: string]: parser.PlaylistItem[]
 }
 export interface ChannelsState {
-  movies: playlistDictionary
-  liveChannels: playlistDictionary
+  movies: ParsedNonSerials
+  liveChannels: ParsedNonSerials
   parsedSeries: ParsedSeries
   selectedNonSerial: parser.PlaylistItem | null
   selectedSerial: SerialsSeasonDictionary | null
@@ -15,7 +15,7 @@ export interface ChannelsState {
   selectedSerialEpisode: parser.PlaylistItem | null
 }
 
-export interface playlistDictionary {
+export interface ParsedNonSerials {
   [key: string]: parser.PlaylistItem[]
 }
 
@@ -41,11 +41,11 @@ const channelsSlice = createSlice({
   name: 'channels',
   initialState,
   reducers: {
-    setMovies: (state, action: PayloadAction<playlistDictionary>) => {
+    setMovies: (state, action: PayloadAction<ParsedNonSerials>) => {
       state.movies = action.payload
     },
 
-    setLiveChannels: (state, action: PayloadAction<playlistDictionary>) => {
+    setLiveChannels: (state, action: PayloadAction<ParsedNonSerials>) => {
       state.liveChannels = action.payload
     },
 
