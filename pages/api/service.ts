@@ -1,6 +1,6 @@
 import nc from 'next-connect'
 import cors from 'cors'
-import parser from 'iptv-playlist-parser'
+import apiService from '../../services/api-service/api-service'
 
 // I hate next
 const getChannelsFromApi = nc()
@@ -8,15 +8,13 @@ const getChannelsFromApi = nc()
   .get(async (req: any, res: any) => {
     const splitUrlFrom = 'url='
     const { url } = req
-
     const requestUrl = url.split(splitUrlFrom)[1]
 
     try {
       const response = await fetch(requestUrl)
       if (response.ok) {
-        const textResponse = await response.text()
-        const channels = parser.parse(textResponse)
-        res.status(200).json(channels)
+        const playlistObject = await apiService.parsePlaylistItems(response)
+        res.status(200).json(playlistObject)
       } else {
         res.statusMessage = 'Channels not found'
         res.status(404).json()

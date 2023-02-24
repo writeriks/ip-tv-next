@@ -1,11 +1,12 @@
-import parser from 'iptv-playlist-parser'
+import { PlaylistObject } from '../player-service/types'
 
-export const fetchChannels = async (url: string): Promise<parser.Playlist | Error> => {
+export const fetchChannels = async (url: string): Promise<PlaylistObject | Error> => {
   const response = await fetch(`/api/service?url=${url}`, {
     method: 'GET',
   })
   if (response.ok) {
-    return response.json()
+    const playlistObject: PlaylistObject = await response.json()
+    return playlistObject
   }
   throw new Error(response.statusText)
 }

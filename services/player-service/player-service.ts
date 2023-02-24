@@ -1,5 +1,4 @@
 import { fetchChannels } from '../api/api'
-import parser from 'iptv-playlist-parser'
 import store from '../../store/redux-store'
 import { parse } from 'next-useragent'
 
@@ -7,15 +6,10 @@ import errorHandler from '../error-handler/error-handler'
 
 import { selectedCategory, setIsMobile } from '../../store/reducers/context-reducer/context-slice'
 import { setIsLoading } from '../../store/reducers/ui-reducer/ui-slice'
-import {
-  ParsedSeries,
-  ParsedNonSerials,
-  setLiveChannels,
-  setMovies,
-  setParsedSeries,
-} from '../../store/reducers/channels-reducer/channels-slice'
+import { setLiveChannels, setMovies, setParsedSeries } from '../../store/reducers/channels-reducer/channels-slice'
 
 import { LoginProps, loginStorage } from '../../components/login-modal/login-types'
+import { PlaylistObject } from './types'
 
 class PlayerService {
   @errorHandler.errorDecorator
@@ -34,13 +28,10 @@ class PlayerService {
   private async getAndStoreAllChannels(formdata: LoginProps) {
     const { url, rememberMe } = formdata
     store.dispatch(setIsLoading(true))
-    const channels = await fetchChannels(url)
-    const { items: playlistItems } = channels as parser.Playlist
+    const playlistObject = (await fetchChannels(url)) as PlaylistObject
 
-    if (playlistItems.length) {
-      await this.parsePlaylistItems(playlistItems)
-      this.handleCrendentials(rememberMe, formdata)
-    }
+    await this.setPlaylistItems(playlistObject)
+    this.handleCrendentials(rememberMe, formdata)
     store.dispatch(setIsLoading(false))
   }
 
@@ -52,60 +43,14 @@ class PlayerService {
     }
   }
 
-  private async parsePlaylistItems(playlistItems: parser.PlaylistItem[]) {
-    const liveChannels = playlistItems.filter((channel) => channel.raw.includes(`/${selectedCategory.LIVE}/`))
-    const series = playlistItems.filter((channel) => channel.raw.includes(`/${selectedCategory.SERIES}/`))
-    const movies = playlistItems.filter((channel) => channel.raw.includes(`/${selectedCategory.MOVIE}/`))
-
-    const liveChannelTitles = this.getTitles(liveChannels)
-    const serialTitles = this.getTitles(series)
-    const movieTitles = this.getTitles(movies)
-
-    const liveChannelsObject = this.setLiveChannelsAndMoviesByTitle(liveChannels, liveChannelTitles)
-    const moviesObject = this.setLiveChannelsAndMoviesByTitle(movies, movieTitles)
-    const seriesObject = this.parseSeriesByTitle(series, serialTitles)
+  private async setPlaylistItems(playlistObject: PlaylistObject) {
+    const { liveChannelsObject, moviesObject, seriesObject } = playlistObject
 
     await Promise.all([
       store.dispatch(setLiveChannels(liveChannelsObject)),
       store.dispatch(setMovies(moviesObject)),
       store.dispatch(setParsedSeries(seriesObject)),
     ])
-  }
-
-  parseSeriesByTitle(playlistItemArray: parser.PlaylistItem[], titles: string[]): ParsedSeries {
-    const playlistByTitleAndSerialName = titles.reduce((acc, title) => {
-      const serialsByGroupTitle = playlistItemArray.filter(({ group: { title: itemTitle } }) => itemTitle === title)
-      const serialNames = [...new Set(serialsByGroupTitle.map(({ name }) => name.split(/ S[0-9]/)[0]))]
-
-      const serialObject = serialNames.reduce((obj, serialName) => {
-        const serialArray = serialsByGroupTitle.filter(({ name }) => name.split(/ S[0-9]/)[0] === serialName)
-        return { ...obj, [serialName]: serialArray }
-      }, {})
-
-      return { ...acc, [title]: serialObject }
-    }, {})
-
-    return playlistByTitleAndSerialName
-  }
-
-  filterDuplicateSerialNames(series: parser.PlaylistItem[], serialTitles: string[]) {
-    const names = series.map((o) => o.name.split(/ S[0-9]/)[0])
-    const seriesPosters = series.filter(({ name }, index) => !names.includes(name.split(/ S[0-9]/)[0], index + 1))
-    return this.setLiveChannelsAndMoviesByTitle(seriesPosters, serialTitles)
-  }
-
-  getTitles(playlistItem: parser.PlaylistItem[]) {
-    const uniqueTitles = new Set(playlistItem.map(({ group: { title } }) => title))
-    return [...uniqueTitles]
-  }
-
-  setLiveChannelsAndMoviesByTitle(playlistItemArray: parser.PlaylistItem[], titles: string[]): ParsedNonSerials {
-    const playlistByTitle = titles.reduce((acc, title) => {
-      const channelsByTitle = playlistItemArray.filter(({ group: { title: itemTitle } }) => itemTitle === title)
-      return { ...acc, [title]: channelsByTitle }
-    }, {})
-
-    return playlistByTitle
   }
 
   getSelectedPlaylistSelector(category: selectedCategory | null) {
