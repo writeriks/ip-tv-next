@@ -2,6 +2,7 @@ import nc from 'next-connect'
 import cors from 'cors'
 import apiService from '../../services/api-service/api-service'
 
+// i hate next
 const getChannelsFromApi = nc()
   .use(cors())
   .get(async (req: any, res: any) => {
