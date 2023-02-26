@@ -11,6 +11,7 @@ import styles from '../../styles/LoginModal.module.scss'
 
 const LoginForm = () => {
   const [formData, setFormData] = useState<LoginProps>(defaultLoginProps)
+  console.log('🚀 ~ file: login-form.tsx:14 ~ LoginForm ~ formData:', formData)
 
   useEffect(() => {
     const storedLoginForm: LoginProps = JSON.parse(localStorage.getItem(loginStorage.LOGIN_FORM) as string)
@@ -18,6 +19,7 @@ const LoginForm = () => {
   }, [])
 
   const onChange = useCallback(({ target }: React.ChangeEvent<HTMLInputElement>): void => {
+    console.log('🚀 ~ file: login-form.tsx:22 ~ onChange ~ target:', target)
     const isCheckbox = target.type === 'checkbox'
     const formValue = { [target.name]: isCheckbox ? target.checked : target.value }
     setFormData((prevFormData) => ({ ...prevFormData, ...formValue }))
@@ -40,9 +42,10 @@ const LoginForm = () => {
         </section>
         <section>
           <RememberMeCheckbox
+            checkboxId="rememberMeCheckbox"
             label="Remember Me"
-            name="rememberMe"
-            isChecked={formData.rememberMe}
+            name="isRememberMe"
+            isChecked={formData.isRememberMe}
             onChange={onChange}
           />
         </section>

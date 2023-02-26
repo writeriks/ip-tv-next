@@ -2,7 +2,7 @@ export interface LoginProps {
   username: string
   password: string
   url: string
-  rememberMe: boolean
+  isRememberMe: boolean
 }
 
 export enum loginTypes {
@@ -11,7 +11,7 @@ export enum loginTypes {
   url = 'url',
 }
 
-export const defaultLoginProps: LoginProps = { username: '', password: '', url: '', rememberMe: false }
+export const defaultLoginProps: LoginProps = { username: '', password: '', url: '', isRememberMe: false }
 
 export enum loginStorage {
   LOGIN_FORM = 'LOGIN_FORM',
