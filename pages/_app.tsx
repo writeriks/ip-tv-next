@@ -7,7 +7,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 
 import '../styles/globals.css'
 import Head from 'next/head'
-
+// test
 const App = ({ Component, pageProps }: AppProps): React.ReactElement => {
   return (
     <>
