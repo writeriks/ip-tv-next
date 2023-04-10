@@ -221,8 +221,14 @@ const Monitor = () => {
 
   return (
     <div>
-      <video autoPlay ref={userVideoRef} playsinline />
-      <video autoPlay ref={peerVideoRef} playsinline />
+      <video autoPlay ref={userVideoRef} playsinline muted />
+      <video autoPlay ref={peerVideoRef} playsinline muted />
+      <button onClick={() => userVideoRef.current?.play()} type="button">
+        play 1
+      </button>
+      <button onClick={() => peerVideoRef.current?.play()} type="button">
+        play 2
+      </button>
       <button onClick={leaveRoom} type="button">
         Leave
       </button>
