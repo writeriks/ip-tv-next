@@ -41,6 +41,8 @@
     "react-player": "^2.11.0",
     "react-redux": "^8.0.5",
     "sass": "^1.56.2",
+    "socket.io": "^4.6.1",
+    "socket.io-client": "^4.6.1",
     "typescript": "4.9.3"
   }
 }
