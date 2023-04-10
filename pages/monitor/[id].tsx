@@ -10,7 +10,8 @@ import styles from '../../styles/MonitorVideo.module.scss'
 
 const Monitor = () => {
   useSocket()
-  const [isMuted, setIsMuted] = useState(true)
+  const [isMeMuted, setIsMeMuted] = useState(true)
+  const [isPartnerMuted, setIsPartnerMuted] = useState(true)
   const router = useRouter()
 
   const userVideoRef = useRef<HTMLVideoElement>(null)
@@ -220,22 +221,32 @@ const Monitor = () => {
   }, [roomName])
 
   return (
-    <div>
-      <video className={styles.videoPlayer} autoPlay ref={userVideoRef} playsinline muted={isMuted} />
-      <video className={styles.videoPlayer} autoPlay ref={peerVideoRef} playsinline muted={isMuted} />
-      <div className={styles.buttonContainer}>
-        <button onClick={() => userVideoRef.current?.play()} type="button">
-          Play you(mobile)
-        </button>
-        <button onClick={() => peerVideoRef.current?.play()} type="button">
-          Play guest(mobile)
-        </button>
-        <button onClick={() => setIsMuted(!isMuted)} type="button">
-          {isMuted ? 'Unmute' : 'Mute'}
-        </button>
-        <button onClick={leaveRoom} type="button">
-          Leave
-        </button>
+    <div className={styles.monitorMainContainer}>
+      <div className={styles.partnerContainer}>
+        <video className={styles.partnerVideoPlayer} autoPlay ref={peerVideoRef} playsinline muted={isPartnerMuted} />
+        <div className={styles.buttonContainer}>
+          <button onClick={() => peerVideoRef.current?.play()} type="button">
+            Play partner
+          </button>
+          <button onClick={() => setIsPartnerMuted(!isPartnerMuted)} type="button">
+            {isPartnerMuted ? 'Unmute' : 'Mute'}
+          </button>
+        </div>
+      </div>
+
+      <div className={styles.userContainer}>
+        <video className={styles.userVideoPlayer} autoPlay ref={userVideoRef} playsinline muted={isMeMuted} />
+        <div className={styles.buttonContainer}>
+          <button onClick={() => userVideoRef.current?.play()} type="button">
+            Play me
+          </button>
+          <button onClick={() => setIsMeMuted(!isMeMuted)} type="button">
+            {isMeMuted ? 'Unmute' : 'Mute'}
+          </button>
+          <button onClick={leaveRoom} type="button">
+            Leave
+          </button>
+        </div>
       </div>
     </div>
   )

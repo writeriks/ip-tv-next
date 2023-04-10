@@ -1,19 +1,42 @@
-.videoPlayer {
-  width: 400px;
-  height: 400px;
+.monitorMainContainer {
+  width: 100%;
+  height: 100%;
 
-  @media screen and (max-width: 500px) {
-    width: 100%;
+  .partnerContainer {
+    width: 400px;
+    height: 400px;
+
+    @media screen and (max-width: 500px) {
+      width: 100%;
+      height: 300;
+    }
+    .partnerVideoPlayer {
+      width: 90%;
+      height: 90%;
+    }
   }
-}
 
-.buttonContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  .userContainer {
+    width: 400px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
 
-  button {
-    padding: 5px;
-    border: 1px solid black;
+    .userVideoPlayer {
+      width: 90%;
+      height: 90%;
+    }
+  }
+  .buttonContainer {
+    display: flex;
+    flex-direction: row;
+    margin-top: 5px;
+
+    button {
+      padding: 5px;
+      margin-left: 10px;
+      border: 1px solid black;
+    }
   }
 }
