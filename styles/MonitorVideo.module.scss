@@ -1,0 +1,19 @@
+.videoPlayer {
+  width: 400px;
+  height: 400px;
+
+  @media screen and (max-width: 500px) {
+    width: 100%;
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+  button {
+    padding: 5px;
+    border: 1px solid black;
+  }
+}

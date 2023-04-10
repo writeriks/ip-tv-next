@@ -5,12 +5,12 @@ import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
 import { io, Socket } from 'socket.io-client'
 import useSocket from '../../hooks/use-socket'
-
 import { DefaultEventsMap } from 'socket.io/dist/typed-events'
+import styles from '../../styles/MonitorVideo.module.scss'
 
 const Monitor = () => {
   useSocket()
-
+  const [isMuted, setIsMuted] = useState(true)
   const router = useRouter()
 
   const userVideoRef = useRef<HTMLVideoElement>(null)
@@ -221,17 +221,22 @@ const Monitor = () => {
 
   return (
     <div>
-      <video autoPlay ref={userVideoRef} playsinline muted />
-      <video autoPlay ref={peerVideoRef} playsinline muted />
-      <button onClick={() => userVideoRef.current?.play()} type="button">
-        play 1
-      </button>
-      <button onClick={() => peerVideoRef.current?.play()} type="button">
-        play 2
-      </button>
-      <button onClick={leaveRoom} type="button">
-        Leave
-      </button>
+      <video className={styles.videoPlayer} autoPlay ref={userVideoRef} playsinline muted={isMuted} />
+      <video className={styles.videoPlayer} autoPlay ref={peerVideoRef} playsinline muted={isMuted} />
+      <div className={styles.buttonContainer}>
+        <button onClick={() => userVideoRef.current?.play()} type="button">
+          Play you(mobile)
+        </button>
+        <button onClick={() => peerVideoRef.current?.play()} type="button">
+          Play guest(mobile)
+        </button>
+        <button onClick={() => setIsMuted(!isMuted)} type="button">
+          {isMuted ? 'Unmute' : 'Mute'}
+        </button>
+        <button onClick={leaveRoom} type="button">
+          Leave
+        </button>
+      </div>
     </div>
   )
 }
