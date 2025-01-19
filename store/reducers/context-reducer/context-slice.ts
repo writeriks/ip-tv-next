@@ -15,6 +15,7 @@ export interface ContextState {
 export enum selectedCategory {
   LIVE = 'live',
   MOVIE = 'movie',
+  MOVIES = 'movies',
   SERIES = 'series',
 }
 

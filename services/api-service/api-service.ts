@@ -9,9 +9,18 @@ class ApiService {
     const channels: parser.Playlist = parser.parse(textResponse)
     const { items: playlistItems } = channels
 
-    const liveChannels = playlistItems.filter((channel) => channel.raw.includes(`/${selectedCategory.LIVE}/`))
+    const liveChannels = playlistItems.filter(
+      (channel) =>
+        !channel.raw.includes(`${selectedCategory.SERIES}`) &&
+        !channel.raw.includes(`${selectedCategory.MOVIE}`) &&
+        !channel.raw.includes(`${selectedCategory.MOVIES}`)
+    )
+
     const series = playlistItems.filter((channel) => channel.raw.includes(`/${selectedCategory.SERIES}/`))
-    const movies = playlistItems.filter((channel) => channel.raw.includes(`/${selectedCategory.MOVIE}/`))
+    const movies = playlistItems.filter(
+      (channel) =>
+        channel.raw.includes(`/${selectedCategory.MOVIE}/`) || channel.raw.includes(`${selectedCategory.MOVIES}`)
+    )
 
     const liveChannelTitles = this.getTitles(liveChannels)
     const serialTitles = this.getTitles(series)
